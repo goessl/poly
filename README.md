@@ -39,6 +39,7 @@ arithmetic operations:
  - `polyadd(*ps)`: $p_0 + p_1 + \dots$,
  - `polysub(p, q)`: $p - q$,
  - `polymul(*ps)`: $p_0 \cdot p_1 \cdot \dots$,
+ - `polydiv(n, d)`: `(q, r)` such that $n=qd+r$,
  - `polypow(p, n)`: $p^n$;
 
 calculus:

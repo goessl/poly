@@ -78,6 +78,17 @@ def polymul(*ps):
     #    r[sum(i)] += prod(pi[ii] for pi, ii in zip(p, i))
     #return r
 
+def polydiv(n, d):
+    """Polynomial division. Returns $(q, r)$ such that $n=qd+r$."""
+    #https://en.wikipedia.org/wiki/Polynomial_long_division#Pseudocode
+    d = polytrim(d)
+    q, r = polyzero, polytrim(n)
+    while not polyeq(r, polyzero) and polydeg(r)>=polydeg(d):
+        t = mono(len(r)-len(d)+1, r[-1]/d[-1])
+        q = polyadd(q, t)
+        r = polytrim(polysub(r, polymul(d, t))[:-1])
+    return q, r
+
 def polypow(p, n):
     """Polynomial exponentiation. Returns $p^n$. Handles `n=0`."""
     return polymul(*repeat(p, n)) #n=0 handled by empty product in polymul
@@ -165,6 +176,13 @@ if __name__ == '__main__':
     assert polyeq(polymul(p), p)
     assert polyeq(polymul(p, polyzero), polyzero)
     assert polyeq(polymul(p, polyone), p)
+    
+    for _ in trange(10000, desc='polydiv'):
+        p, q = gauss_tuple(randint(1, 10)), gauss_tuple(randint(1, 10))
+        pred, actual = polydiv(p, q), np.polynomial.polynomial.polydiv(p, q)
+        assert np.allclose(pred[0], actual[0]) and np.allclose(pred[1], actual[1])
+    assert all(map(polyeq, polydiv(polyzero, p), (polyzero, polyzero)))
+    assert all(map(polyeq, polydiv(p, polyone), (p, polyzero)))
     
     for _ in trange(1000, desc='polypow'):
         p, n = gauss_tuple(randint(1, 10)), randint(0, 20)
