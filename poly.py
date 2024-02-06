@@ -41,6 +41,14 @@ def polyval(p, x):
     #https://docs.python.org/3/library/itertools.html#itertools-recipes
     return sumprod(p, map(pow, repeat(x), range(len(p)))) if p else type(x)(0)
 
+def polycom(p, q):
+    """Polynomial composition. Returns $p(q)$."""
+    t, r = polyone, polyzero
+    for pi in p:
+        r = polyadd(r, (pi*ti for ti in t))
+        t = polymul(t, q)
+    return r
+
 
 #arithmetic
 def polyadd(*ps):
@@ -122,6 +130,16 @@ if __name__ == '__main__':
                 np.polynomial.polynomial.polyval(x, p))
     assert polyval(polyzero, 1) == 0
     assert type(polyval(polyzero, 1.0)) == float
+    
+    for _ in trange(10000, desc='polycom'):
+        p, q = gauss_tuple(randint(1, 10)), gauss_tuple(randint(1, 10))
+        assert np.allclose(polycom(p, q),
+                    np.poly1d(p[::-1])(np.poly1d(q[::-1])).c[::-1])
+    assert polyeq(polycom(polyzero, polyzero), polyzero)
+    assert polyeq(polycom(polyzero, polyone), polyzero)
+    assert polyeq(polycom(polyone, polyzero), polyone)
+    assert polyeq(polycom(polyzero, p), polyzero)
+    assert polyeq(polycom(p, polyzero), mono(0, p[0]))
     
     
     for _ in trange(10000, desc='polyadd'):

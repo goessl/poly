@@ -32,7 +32,8 @@ Provided are fundamental polynomials:
  - `mono(n, c=1)`: $c\cdot x^n$;
 
 evaluation:
- - `polyval(p, x)`: $p(x)$;
+ - `polyval(p, x)`: $p(x)$,
+ - `polycom(p, q)`: $p(q)$;
 
 arithmetic operations:
  - `polyadd(*ps)`: $p_0 + p_1 + \dots$,
