@@ -6,8 +6,8 @@ long_description = (this_directory / 'README.md').read_text()
 
 setup(
     name = 'poly',
-    version = '0.9.4',
-    description = 'A native polynomial Python module.',
+    version = '0.9.5',
+    description = 'A Python package for native object polynomials and vectorized `numpy.polynomial.polynomial` functions.',
     long_description = long_description,
     long_description_content_type = 'text/markdown',
     
@@ -15,9 +15,10 @@ setup(
     author_email = 'goessl@student.tugraz.at',
     license = 'MIT',
     
-    py_modules = ['poly'],
+    py_modules = ['poly', 'nppoly'],
     url = 'https://github.com/goessl/poly',
     python_requires = '>=3.12',
+    install_requires = ['numpy'],
     
     classifiers = [
         'Development Status :: 4 - Beta',
