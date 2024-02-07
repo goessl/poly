@@ -25,6 +25,9 @@ To represent polynomials sequences like `list`s and `tuple`s are used (coefficie
 The functions signatures try to mimic `numpy.polynomial.polynomial`, most often with less parameters because of less functionality.
 Operations that are associative, like `polyadd` and `polymul`, allow arbitrary many arguments, even none.
 
+If actual `polyzero`s (`()`, not some untrimmed polynomial like `(0,)`) are passed as arguments, the functions also correctly return actual `polyzero`s (`()`) or `polyone`s (`(1,)`).
+The user is responsible to `polytrim` arguments and results.
+
 Provided are fundamental polynomials:
  - `polyzero`: $0$,
  - `polyone`: $1$,

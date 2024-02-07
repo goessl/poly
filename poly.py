@@ -68,9 +68,14 @@ def polymul(*ps):
             for j, qj in enumerate(q):
                 r[i+j] += pi * qj
         return r
-    #wrap in tuple to be consistent with other functions
-    #ternary is faster than initializer=polyone
-    return tuple(reduce(_polymul, ps)) if ps else polyone
+    #if is faster than initializer=polyone and polytrim
+    if not ps:
+        return polyone
+    elif any(p==polyzero for p in ps):
+        return polyzero
+    else:
+        #wrap in tuple to be consistent with other functions
+        return tuple(reduce(_polymul, ps))
     #prolly faster for many arguments,
     #but isn't as clean and doesn't handle empty products:
     #r = [0] * (sum(len(pi) for pi in p) - len(p) + 1)
@@ -103,7 +108,8 @@ def polyder(p): #TODO: higher derivatives
 def polyint(p, c=0):
     """Polynomial integration. Returns $\\int p(x)dx$
     where `c` is the integration constant."""
-    return tuple(chain((c,), map(truediv, p, range(1, len(p)+1))))
+    return tuple(chain((c,), map(truediv, p, range(1, len(p)+1)))) \
+            if not (p==polyzero and c==0) else polyzero
 
 
 
@@ -146,11 +152,11 @@ if __name__ == '__main__':
         p, q = gauss_tuple(randint(1, 10)), gauss_tuple(randint(1, 10))
         assert np.allclose(polycom(p, q),
                     np.poly1d(p[::-1])(np.poly1d(q[::-1])).c[::-1])
-    assert polyeq(polycom(polyzero, polyzero), polyzero)
-    assert polyeq(polycom(polyzero, polyone), polyzero)
-    assert polyeq(polycom(polyone, polyzero), polyone)
-    assert polyeq(polycom(polyzero, p), polyzero)
-    assert polyeq(polycom(p, polyzero), mono(0, p[0]))
+    assert polycom(polyzero, polyzero) == polyzero
+    assert polycom(polyzero, polyone) == polyzero
+    assert polycom(polyone, polyzero) == polyone
+    assert polycom(polyzero, p) == polyzero
+    assert polycom(p, polyzero) == mono(0, p[0])
     
     
     for _ in trange(10000, desc='polyadd'):
@@ -165,17 +171,17 @@ if __name__ == '__main__':
         p, q = gauss_tuple(randint(1, 10)), gauss_tuple(randint(1, 10))
         assert np.allclose(polysub(p, q),
                 np.polynomial.polynomial.polysub(p, q))
-    assert polyeq(polysub(p, polyzero), p)
-    assert polyeq(polysub(polyzero, p), tuple(-pi for pi in p))
+    assert polysub(p, polyzero) == p
+    assert polysub(polyzero, p) == tuple(-pi for pi in p)
     
     for _ in trange(10000, desc='polymul'):
         ps = [gauss_tuple(randint(1, 10)) for _ in range(randint(1, 4))]
         assert np.allclose(polymul(*ps),
                 reduce(np.polynomial.polynomial.polymul, ps))
-    assert polyeq(polymul(), polyone)
-    assert polyeq(polymul(p), p)
-    assert polyeq(polymul(p, polyzero), polyzero)
-    assert polyeq(polymul(p, polyone), p)
+    assert polymul() == polyone
+    assert polymul(p) == p
+    assert polymul(p, polyzero) == polyzero
+    assert polymul(p, polyone) == p
     
     for _ in trange(10000, desc='polydiv'):
         p, q = gauss_tuple(randint(1, 10)), gauss_tuple(randint(1, 10))
@@ -196,13 +202,13 @@ if __name__ == '__main__':
         p = gauss_tuple(randint(1, 10))
         assert np.allclose(polyder(p),
                 np.polynomial.polynomial.polyder(p))
-    assert polyeq(polyder(polyzero), polyzero)
-    assert polyeq(polyder(polyone), polyzero)
+    assert polyder(polyzero) == polyzero
+    assert polyder(polyone) == polyzero
     
     for _ in trange(1000, desc='polyint'):
         p, c = gauss_tuple(randint(1, 10)), gauss()
         assert np.allclose(polyint(p, c),
                 np.polynomial.polynomial.polyint(p, k=c))
-    assert polyeq(polyint(polyzero), polyzero)
-    assert polyeq(polyint(polyzero, 1), polyone)
-    assert polyeq(polyint(polyone), polyx)
+    assert polyint(polyzero) == polyzero
+    assert polyint(polyzero, 1) == polyone
+    assert polyint(polyone) == polyx

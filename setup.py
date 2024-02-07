@@ -6,7 +6,7 @@ long_description = (this_directory / 'README.md').read_text()
 
 setup(
     name = 'poly',
-    version = '0.9.2',
+    version = '0.9.3',
     description = 'A native polynomial Python module.',
     long_description = long_description,
     long_description_content_type = 'text/markdown',
