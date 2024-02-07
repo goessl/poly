@@ -32,7 +32,7 @@ Provided are fundamental polynomials:
  - `polyzero`: $0$,
  - `polyone`: $1$,
  - `polyx`: $x$,
- - `mono(n, c=1)`: $c\cdot x^n$;
+ - `polymono(n, c=1)`: $c\cdot x^n$;
 
 evaluation:
  - `polyval(p, x)`: $p(x)$,

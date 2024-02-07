@@ -10,7 +10,7 @@ polyzero = ()
 polyone = (1, )
 polyx = (0, 1)
 
-def mono(n, c=1):
+def polymono(n, c=1):
     """Returns the monomial $cx^n$ as tuple."""
     return (0,)*(n-1) + (c,)
 
@@ -19,7 +19,7 @@ def mono(n, c=1):
 def polydeg(p):
     """Polynomial degree. Returns $\\deg(p)$,
     where $\\deg(0)=-1$ is used for the empty zero polynomial (https://en.wikipedia.org/wiki/Degree_of_a_polynomial#Degree_of_the_zero_polynomial).
-    Handles leading zeros"""
+    Handles leading zeros."""
     return len(polytrim(p)) - 1
 
 def polytrim(p, tol=0):
@@ -89,7 +89,7 @@ def polydiv(n, d):
     d = polytrim(d)
     q, r = polyzero, polytrim(n)
     while not polyeq(r, polyzero) and polydeg(r)>=polydeg(d):
-        t = mono(len(r)-len(d)+1, r[-1]/d[-1])
+        t = polymono(len(r)-len(d)+1, r[-1]/d[-1])
         q = polyadd(q, t)
         r = polytrim(polysub(r, polymul(d, t))[:-1])
     return q, r
@@ -156,7 +156,7 @@ if __name__ == '__main__':
     assert polycom(polyzero, polyone) == polyzero
     assert polycom(polyone, polyzero) == polyone
     assert polycom(polyzero, p) == polyzero
-    assert polycom(p, polyzero) == mono(0, p[0])
+    assert polycom(p, polyzero) == polymono(0, p[0])
     
     
     for _ in trange(10000, desc='polyadd'):
