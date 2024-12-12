@@ -15,7 +15,6 @@ setup(
     author_email = 'goessl@student.tugraz.at',
     license = 'MIT',
     
-    py_modules = ['poly', 'nppoly'],
     url = 'https://github.com/goessl/poly',
     python_requires = '>=3.12',
     install_requires = ['numpy'],
