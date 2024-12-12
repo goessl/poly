@@ -2,7 +2,15 @@ from math import sumprod
 from operator import neg, mul, pow, truediv
 from functools import reduce
 from itertools import repeat, chain, accumulate
-from vector import vecrand, vecadd, vecsub, vecmul, vectrim, veceq, vecbasis
+from vector import vecbasis, vecrand, vecadd, vecsub, vecmul, vectrim, veceq
+
+
+
+__all__ = ['polyzero', 'polyone', 'polyx',
+        'polyrand', 'polyrandn', 'polyfromroots',
+        'polydeg', 'polyval', 'polycom',
+        'polymul', 'polymulx', 'polypow', 'polydiv',
+        'polyder', 'polyint']
 
 
 

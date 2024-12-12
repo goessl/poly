@@ -1,7 +1,8 @@
 from poly import *
 import numpy as np
 from random import gauss, randint
-from vector import vecrand
+from vector import vecbasis, vecrand, veceq, vectrim
+from functools import reduce
 from fractions import Fraction
 
 

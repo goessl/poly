@@ -1,2 +1,2 @@
-from .polyfunctions import *
-from .polynumpy import *
+from ._polyfunctions import *
+from ._polynumpy import *

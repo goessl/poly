@@ -6,6 +6,12 @@ from vector import vecnpzero, vecnpbasis, vecnptrim, vecnpeq, vecnpadd
 
 
 
+__all__ = ['polynpzero', 'polynpone', 'polynpmono', 'polynpfromroots',
+        'polynpval', 'polynpcom', 'polynpmul', 'polynppow',
+        'polynpder', 'polynpmder', 'polynpint', 'polynpmint']
+
+
+
 #creation stuff
 def polynpzero(d=None):
     """Return `d` zero polynomials.
