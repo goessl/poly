@@ -2,13 +2,14 @@ import numpy as np
 from functools import reduce
 from itertools import repeat
 from math import sumprod
+from fractions import Fraction
 from vector import vecnpzero, vecnpbasis, vecnptrim, vecnpeq, vecnpadd
 
 
 
 __all__ = ['polynpzero', 'polynpone', 'polynpmono', 'polynpfromroots',
         'polynpval', 'polynpcom', 'polynpmul', 'polynppow',
-        'polynpder', 'polynpmder', 'polynpint', 'polynpmint']
+        'polynpder', 'polynpderM', 'polynpint', 'polynpintM']
 
 
 
@@ -69,11 +70,20 @@ def polynpcom(p, q):
 
 #arithmetic
 def _polynpmul(p, q):
-    r = [0] * (p.shape[-1] + q.shape[-1] - 1)
+    p, q = np.asarray(p), np.asarray(q)
+    if p.ndim>2 or q.ndim>2: #1D*1D, 1D*2D, 2D*1D, 2D*2D
+        raise ValueError
+    
+    heights = set(p.shape[:-1]) | set(q.shape[:-1])
+    if len(heights) > 1: #both same height if both 2D
+        raise ValueError
+    
+    r = np.zeros(tuple(heights)+(p.shape[-1]+q.shape[-1]-1,),
+            dtype=np.result_type(p, q))
     for i, pi in enumerate(p.T):
         for j, qj in enumerate(q.T):
-            r[i+j] += pi * qj
-    return np.array(r).T
+            r[..., i+j] += pi * qj
+    return r
 
 def polynpmul(*ps):
     if not ps:
@@ -94,9 +104,9 @@ def polynpder(p, n=1):
         p = p[...,1:] * np.arange(1, p.shape[-1])
     return p
 
-def polynpmder(deg):
-    D = np.zeros((deg, deg+1), dtype=object)
-    D.flat[1::D.shape[1]+1] = range(1, deg+1)
+def polynpderM(deg):
+    D = np.zeros((deg, deg+1), dtype=np.uint64)
+    np.fill_diagonal(D[:,1:], range(1, deg+1))
     return D
 
 def polynpint(p, n=1, c=0):
@@ -110,7 +120,17 @@ def polynpint(p, n=1, c=0):
     except TypeError:
         return polynpint(p, n, (c,)*n)
 
-def polynpmint(deg):
-    I = np.zeros((deg+2, deg+1), dtype=np.float64)
-    I.flat[I.shape[1]::I.shape[1]+1] = 1 / np.arange(1, deg+2)
-    return I
+def polynpintM(deg, dtype='float'):
+    match dtype:
+        case 'float':
+            I = np.zeros((deg+2, deg+1), dtype=np.float64)
+            np.fill_diagonal(I[1:,:], 1/np.arange(1, deg+2))
+            return I
+        
+        case 'Fraction':
+            I = np.full((deg+2, deg+1), Fraction())
+            np.fill_diagonal(I[1:,:], [Fraction(1, d) for d in range(1, deg+2)])
+            return I
+        
+        case _:
+            raise ValueError

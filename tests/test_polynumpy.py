@@ -1,6 +1,5 @@
 from poly import *
 import numpy as np
-from functools import reduce
 
 
 
@@ -84,12 +83,16 @@ def test_polynppow():
         actual = np.apply_along_axis(
                 lambda pi: np.polynomial.polynomial.polypow(pi, n), 1, p)
         assert np.allclose(prediction, actual)
+'''
+
+
 
 
 def test_polynpder():
     for _ in range(100): #1D
         p = np.random.rand(np.random.randint(1, 10))
         n = np.random.randint(0, 5)
+        
         prediction = polynpder(p, n)
         actual = np.polynomial.polynomial.polyder(p, n)
         assert np.allclose(prediction, actual)
@@ -97,24 +100,28 @@ def test_polynpder():
     for _ in range(100): #2D
         p = np.random.rand(20, np.random.randint(1, 10))
         n = np.random.randint(0, 5)
+        
         prediction = polynpder(p, n)
         actual = np.apply_along_axis(
                 lambda p: np.polynomial.polynomial.polyder(p, n), 1, p)
         assert np.allclose(prediction, actual)
 
-def test_polynpmder():
-    for deg in range(10):
-        p = polyrand(deg)
+def test_polynpderM():
+    for _ in range(100):
+        deg = np.random.randint(0, 10)
+        p = np.random.rand(deg+1)
         
-        prediction = polynpmder(deg) @ p
-        actual = polyder(p)
+        prediction = polynpderM(deg) @ p
+        actual = polynpder(p)
         assert np.allclose(prediction, actual)
+
 
 def test_polynpint():
     for _ in range(100): #1D
         p = np.random.rand(np.random.randint(1, 10))
         n = np.random.randint(0, 5)
         c = np.random.rand(n)
+        
         prediction = polynpint(p, n, c)
         actual = np.polynomial.polynomial.polyint(p, n, c)
         assert np.allclose(prediction, actual)
@@ -123,16 +130,19 @@ def test_polynpint():
         p = np.random.rand(20, np.random.randint(1, 10))
         n = np.random.randint(0, 5)
         c = np.random.rand(n)
+        
         prediction = polynpint(p, n, c)
         actual = np.apply_along_axis(
                 lambda p: np.polynomial.polynomial.polyint(p, n, c), 1, p)
         assert np.allclose(prediction, actual)
 
-def test_polynpmint():
-    for deg in range(10):
-        p = polyrand(deg)
+def test_polynpintM():
+    for _ in range(100):
+        deg = np.random.randint(0, 10)
+        p = np.random.rand(deg+1)
         
-        prediction = polynpmint(deg) @ p
-        actual = polyint(p)
-        assert np.allclose(prediction, actual)
-'''
+        prediction1 = polynpintM(deg, 'float') @ p
+        prediction2 = polynpintM(deg, 'Fraction') @ p
+        actual = polynpint(p)
+        assert np.allclose(prediction1, actual)
+        assert np.allclose(prediction2.astype(np.float64), actual)

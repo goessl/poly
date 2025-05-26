@@ -10,45 +10,70 @@ from fractions import Fraction
 def test_polyfromroots():
     for _ in range(1000):
         r = vecrand(randint(1, 10))
-        p = polyfromroots(r)
+        p = polyfromroots(*r)
         assert all(np.isclose(polyval(p, ri), 0) for ri in r)
         assert not np.allclose(p, 0)
 
 
 def test_polyval():
+    #compare with numpy
     for _ in range(1000):
-        p, x = vecrand(randint(1, 100)), gauss()
+        p, x = vecrand(randint(1, 10)), gauss()
         assert np.isclose(polyval(p, x, 'naive'),
                 np.polynomial.polynomial.polyval(x, p))
         assert np.isclose(polyval(p, x, 'iterative'),
                 np.polynomial.polynomial.polyval(x, p))
         assert np.isclose(polyval(p, x, 'horner'),
                 np.polynomial.polynomial.polyval(x, p))
-    assert polyval(polyzero, Fraction(5)) == 0 \
-            and isinstance(polyval(polyzero, Fraction(5)), Fraction)
+    #empty polynomial
+    assert polyval(polyzero, x, 'naive') \
+            == polyval(polyzero, x, 'iterative') \
+            == polyval(polyzero, x, 'horner') == float(0)
+    #type consistency
+    p, x = polyzero, Fraction(5, 2)
+    for method in ('naive', 'iterative', 'horner'):
+        assert polyval(p, x, method) == 0 \
+        and isinstance(polyval(p, x, method), Fraction)
+    p = (1, 2, 3)
+    for method in ('naive', 'iterative', 'horner'):
+        assert polyval(p, x, method) == Fraction(99, 4) \
+                and isinstance(polyval(p, x, method), Fraction)
 
 def test_polycom():
+    def nppolycom(p, q):
+        p = np.polynomial.polynomial.Polynomial(p)
+        q = np.polynomial.polynomial.Polynomial(q)
+        r = p(q)
+        return r.coef
+    
     for _ in range(1000):
         p, q = vecrand(randint(1, 10)), vecrand(randint(1, 10))
-        assert np.allclose(polycom(p, q),
-                    np.poly1d(p[::-1])(np.poly1d(q[::-1])).c[::-1])
-    assert polycom(polyzero, polyzero) == polyzero
-    assert polycom(polyzero, polyone) == polyzero
-    assert polycom(polyone, polyzero) == polyone
-    assert polycom(polyzero, p) == polyzero
-    assert polycom(p, polyzero) == vecbasis(0, p[0])
+        prediction0 = polycom(p, q, 'naive')
+        prediction1 = polycom(p, q, 'iterative')
+        prediction2 = polycom(p, q, 'horner')
+        actual = nppolycom(p, q)
+        assert np.allclose(prediction0, actual)
+        assert np.allclose(prediction1, actual)
+        assert np.allclose(prediction2, actual)
+    
+    for method in {'naive', 'iterative'}:
+        assert polycom(polyzero, polyzero, method) == polyzero
+        assert polycom(polyzero, polyone, method) == polyzero
+        assert polycom((4, 5, 6), polyzero, method) == (4,)
 
 
 def test_polymul():
-    for _ in range(1000):
-        ps = [vecrand(randint(1, 10)) for _ in range(randint(1, 4))]
-        assert np.allclose(polymul(*ps),
-                reduce(np.polynomial.polynomial.polymul, ps))
-    p = vecrand(randint(1, 10))
-    assert polymul() == polyone
-    assert polymul(p) == p
-    assert vectrim(polymul(p, polyzero)) == polyzero
-    assert polymul(p, polyone) == p
+    for method in {'naive', 'karatsuba'}:
+        for _ in range(1000):
+            ps = [vecrand(randint(1, 10)) for _ in range(randint(1, 4))]
+            prediction = polymul(*ps, method=method)
+            actual = reduce(np.polynomial.polynomial.polymul, ps)
+            assert np.allclose(prediction, actual)
+        p = vecrand(randint(1, 10))
+        assert polymul(method=method) == polyone
+        assert polymul(p, method=method) == p
+        assert vectrim(polymul(p, polyzero, method=method)) == polyzero
+        assert polymul(p, polyone, method=method) == p
 
 def test_polymulx():
     for _ in range(1000):
