@@ -18,7 +18,34 @@ pip install git+https://github.com/goessl/poly.git
 
 ## Usage
 
-**Enjoy the [documentation webpage](https://goessl.github.io/poly).**
+This package heavily depends on and is the natural extension of [goessl/vector](https://goessl.github.io/vector).
+
+| Operation               | [poly](functional.md)                            |
+| ----------------------- | ------------------------------------------------ |
+| **Creation**            |                                                  |
+| Zero constant           | [`polyzero`][poly.functional.polyzero]           |
+| One constant            | [`polyone`][poly.functional.polyone]             |
+| Identity                | [`polyx`][poly.functional.polyx]                 |
+| Basis                   | [`polymono`][poly.functional.polymono]           |
+| Uniform random          | [`polyrand`][poly.functional.polyrand]           |
+| Normal random           | [`polyrandn`][poly.functional.polyrandn]         |
+| **Application**         |                                                  |
+| Evaluation              | [`polyval`][poly.functional.polyval]             |
+| Composition             | [`polycom`][poly.functional.polycom]             |
+| **Arithmetic**          |                                                  |
+| Addition                | [`polyadd`][poly.functional.polyadd]             |
+| Basis addition          | [`polyaddc`][poly.functional.polyaddc]           |
+| Subtraction             | [`polysub`][poly.functional.polysub]             |
+| Multiplication          | [`polymul`][poly.functional.polymul]             |
+| Multiplication by $x$   | [`polymulx`][poly.functional.polymulx]           |
+| Multiplication by basis | [`polymulx`][poly.functional.polymulx]           |
+| Exponentiation          | [`polypow`][poly.functional.polypow]             |
+| **Calculus**            |                                                  |
+| Differentiation         | [`polyder`][poly.functional.polyder]             |
+| Integration             | [`polyantider`][poly.functional.polyantider]     |
+| **Conversion**          |                                                  |
+| Sympification           | [`polysympify`][poly.functional.polysympify]     |
+| Unsympification         | [`polyunsympify`][poly.functional.polyunsympify] |
 
 ## Design
 
@@ -32,18 +59,12 @@ This ways the coefficient indices correspond to the monomial exponent (or the ba
 
 ## Roadmap
 
-- Documentation
-  - [ ] [Karatsuba][poly.functional.polymul_karatsuba]
-  - [ ] Graph view, perfect "See also" references
 - Modules
   - [ ] Hermite polynomials module
   - [ ] Object oriented module
   - [ ] Parallelised module
   - [ ] Multivariate module
 - Algorithms
-  - [ ] `polydivmod`
-  - [ ] `polysqrt`
-  - [ ] `polyroots` only if there is a clean algorithm
   - [ ] [Knuth–Eve evaluation](https://en.wikipedia.org/wiki/Knuth–Eve_algorithm)
   - [ ] [Taylor shift](https://math.stackexchange.com/a/694571/1170417)
   - [ ] Complexity analysis
