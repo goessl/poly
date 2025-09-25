@@ -537,6 +537,30 @@
 <td><a class="autorefs autorefs-internal" title="            polyrandn(n, normed=True, mu=0, sigma=1)" href="functional/#poly.functional.polyrandn"><code>polyrandn</code></a></td>
 </tr>
 <tr>
+<td>From roots</td>
+<td><a class="autorefs autorefs-internal" title="            polyfromroots(*xs)" href="functional/#poly.functional.polyfromroots"><code>polyfromroots</code></a></td>
+</tr>
+<tr>
+<td><strong>Utility</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>Comparison</td>
+<td><a class="autorefs autorefs-internal" title="            polyeq(p, q)" href="functional/#poly.functional.polyeq"><code>polyeq</code></a></td>
+</tr>
+<tr>
+<td>Trimming</td>
+<td><a class="autorefs autorefs-internal" title="            polytrim(p, tol=1e-09)" href="functional/#poly.functional.polytrim"><code>polytrim</code></a></td>
+</tr>
+<tr>
+<td>Rounding</td>
+<td><a class="autorefs autorefs-internal" title="            polyround(p, ndigits=None)" href="functional/#poly.functional.polyround"><code>polyround</code></a></td>
+</tr>
+<tr>
+<td>Degree</td>
+<td><a class="autorefs autorefs-internal" title="            polydeg(p)" href="functional/#poly.functional.polydeg"><code>polydeg</code></a></td>
+</tr>
+<tr>
 <td><strong>Application</strong></td>
 <td></td>
 </tr>
@@ -545,12 +569,56 @@
 <td><a class="autorefs autorefs-internal" title="            polyval(p, x, method='horner')" href="functional/#poly.functional.polyval"><code>polyval</code></a></td>
 </tr>
 <tr>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            polyval_naive(p, x)" href="functional/#poly.functional.polyval_naive"><code>polyval</code></a></td>
+</tr>
+<tr>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            polyval_iterative(p, x)" href="functional/#poly.functional.polyval_iterative"><code>polyval</code></a></td>
+</tr>
+<tr>
+<td>Evaluation of monomials</td>
+<td><a class="autorefs autorefs-internal" title="            polyvalgen(x)" href="functional/#poly.functional.polyvalgen"><code>polyvalgen</code></a></td>
+</tr>
+<tr>
+<td>Evaluation at <span class="arithmatex">\(x=0\)</span></td>
+<td><a class="autorefs autorefs-internal" title="            polyvalzero(p)" href="functional/#poly.functional.polyvalzero"><code>polyvalzero</code></a></td>
+</tr>
+<tr>
 <td>Composition</td>
 <td><a class="autorefs autorefs-internal" title="            polycom(p, q, method='horner')" href="functional/#poly.functional.polycom"><code>polycom</code></a></td>
 </tr>
 <tr>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            polycom_naive(p, q)" href="functional/#poly.functional.polycom_naive"><code>polycom_naive</code></a></td>
+</tr>
+<tr>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            polycom_iterative(p, q)" href="functional/#poly.functional.polycom_iterative"><code>polycom_iterative</code></a></td>
+</tr>
+<tr>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            polycom_horner(p, q)" href="functional/#poly.functional.polycom_horner"><code>polycom_horner</code></a></td>
+</tr>
+<tr>
+<td>Powers of polynomials</td>
+<td><a class="autorefs autorefs-internal" title="            polycomgen(p)" href="functional/#poly.functional.polycomgen"><code>polycomgen</code></a></td>
+</tr>
+<tr>
+<td>Shift</td>
+<td><a class="autorefs autorefs-internal" title="            polyshift(p, s)" href="functional/#poly.functional.polyshift"><code>polyshift</code></a></td>
+</tr>
+<tr>
 <td><strong>Arithmetic</strong></td>
 <td></td>
+</tr>
+<tr>
+<td>Positive</td>
+<td><a class="autorefs autorefs-internal" title="            polypos(p)" href="functional/#poly.functional.polypos"><code>polypos</code></a></td>
+</tr>
+<tr>
+<td>Negation</td>
+<td><a class="autorefs autorefs-internal" title="            polyneg(p)" href="functional/#poly.functional.polyneg"><code>polyneg</code></a></td>
 </tr>
 <tr>
 <td>Addition</td>
@@ -565,20 +633,52 @@
 <td><a class="autorefs autorefs-internal" title="            polysub(p, q)" href="functional/#poly.functional.polysub"><code>polysub</code></a></td>
 </tr>
 <tr>
+<td>Scalar multiplication</td>
+<td><a class="autorefs autorefs-internal" title="            polyscalarmul(a, p)" href="functional/#poly.functional.polyscalarmul"><code>polyscalarmul</code></a></td>
+</tr>
+<tr>
+<td>Scalar true division</td>
+<td><a class="autorefs autorefs-internal" title="            polyscalartruediv(p, a)" href="functional/#poly.functional.polyscalartruediv"><code>polyscalartruediv</code></a></td>
+</tr>
+<tr>
+<td>Scalar floor division</td>
+<td><a class="autorefs autorefs-internal" title="            polyscalarfloordiv(p, a)" href="functional/#poly.functional.polyscalarfloordiv"><code>polyscalarfloordiv</code></a></td>
+</tr>
+<tr>
+<td>Scalar mod</td>
+<td><a class="autorefs autorefs-internal" title="            polyscalarmod(p, a)" href="functional/#poly.functional.polyscalarmod"><code>polyscalarmod</code></a></td>
+</tr>
+<tr>
+<td>Scalar divmod</td>
+<td><a class="autorefs autorefs-internal" title="            polyscalardivmod(p, a)" href="functional/#poly.functional.polyscalardivmod"><code>polyscalardivmod</code></a></td>
+</tr>
+<tr>
 <td>Multiplication</td>
 <td><a class="autorefs autorefs-internal" title="            polymul(*ps, method='naive')" href="functional/#poly.functional.polymul"><code>polymul</code></a></td>
+</tr>
+<tr>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            polymul_naive(p, q)" href="functional/#poly.functional.polymul_naive"><code>polymul_naive</code></a></td>
+</tr>
+<tr>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            polymul_karatsuba(p, q)" href="functional/#poly.functional.polymul_karatsuba"><code>polymul_karatsuba</code></a></td>
 </tr>
 <tr>
 <td>Multiplication by <span class="arithmatex">\(x\)</span></td>
 <td><a class="autorefs autorefs-internal" title="            polymulx(p, n=1)" href="functional/#poly.functional.polymulx"><code>polymulx</code></a></td>
 </tr>
 <tr>
-<td>Multiplication by basis</td>
-<td><a class="autorefs autorefs-internal" title="            polymulx(p, n=1)" href="functional/#poly.functional.polymulx"><code>polymulx</code></a></td>
-</tr>
-<tr>
 <td>Exponentiation</td>
 <td><a class="autorefs autorefs-internal" title="            polypow(p, n, method='binary')" href="functional/#poly.functional.polypow"><code>polypow</code></a></td>
+</tr>
+<tr>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            polypow_naive(p, n)" href="functional/#poly.functional.polypow_naive"><code>polypow_naive</code></a></td>
+</tr>
+<tr>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            polypow_binary(p, n)" href="functional/#poly.functional.polypow_binary"><code>polypow_binary</code></a></td>
 </tr>
 <tr>
 <td><strong>Calculus</strong></td>
@@ -618,7 +718,12 @@
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Object oriented module</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Parallelised module</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Multivariate module</li>
+<li>Documentation</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <a class="autorefs autorefs-internal" title="            polymul_karatsuba(p, q)" href="functional/#poly.functional.polymul_karatsuba"><code>polymul_karatsuba</code></a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Consisten use of <code>Horner</code> / <code>Clenshaw</code></li>
 <li>Algorithms</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>polysqrt</code></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>polyroots</code> only if there is a clean algorithm</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <a href="https://en.wikipedia.org/wiki/Knuth–Eve_algorithm">Knuth–Eve evaluation</a></li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <a href="https://math.stackexchange.com/a/694571/1170417">Taylor shift</a></li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Complexity analysis</li>
