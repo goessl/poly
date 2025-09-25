@@ -221,7 +221,7 @@ def polyval_naive(p, x):
     - other implementations:
     [`polyval_iterative`][poly.functional.polyval_iterative],
     [`polyval_horner`][poly.functional.polyval_horner]
-    - for polynomial arguments: [`polyval_naive`][poly.functional.polyval_naive]
+    - for polynomial arguments: [`polycom_naive`][poly.functional.polycom_naive]
     
     References
     ----------
@@ -241,6 +241,8 @@ def polyvalgen(x):
     $$
         (x^n)_{n\in\mathbb{N}_0} = (1, x, x^2, \dots)
     $$
+    
+    Uses iterative multiplication to calculate monomials consecutively.
     
     See also
     --------
@@ -285,7 +287,7 @@ def polyval_horner(p, x):
     
     Uses Horner's method.
     
-    `p` has to be reversible
+    `p` must be reversible
     
     See also
     --------
@@ -312,7 +314,7 @@ def polyval(p, x, method='horner'):
     
     - [`naive`][poly.functional.polyval_naive],
     - [`iterative`][poly.functional.polyval_iterative] &
-    - [`horner`][poly.functional.polyval_horner] (`p` has to be reversible).
+    - [`horner`][poly.functional.polyval_horner] (`p` must be reversible).
     
     See also
     --------
@@ -381,6 +383,8 @@ def polycomgen(p):
         (p^n)_{n\in\mathbb{N}_0} = (1, p, p^2, \dots)
     $$
     
+    Uses iterative multiplication to calculate powers consecutively.
+    
     `p` must be a sequence.
     
     See also
@@ -447,7 +451,7 @@ def polycom(p, q, method='horner'):
     
     - [`naive`][poly.functional.polycom_naive],
     - [`iterative`][poly.functional.polycom_iterative] &
-    - [`horner`][poly.functional.polycom_horner] (`p` has to be reversible).
+    - [`horner`][poly.functional.polycom_horner] (`p` must be reversible).
     
     See also
     --------
@@ -550,7 +554,7 @@ def polysub(p, q):
     
     See also
     --------
-    - for constant or monomial: [`polyaddc`][poly.functional.polyaddc],
+    - for constant or monomial: [`polyaddc`][poly.functional.polyaddc]
     - wraps: [`vector.vecsub`](https://goessl.github.io/vector/functional/#vector.functional.vecsub)
     """
     return vecsub(p, q)

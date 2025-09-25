@@ -20,6 +20,8 @@ pip install git+https://github.com/goessl/poly.git
 
 **Enjoy the [documentation webpage](https://goessl.github.io/poly).**
 
+This package heavily depends on and is the natural extension of [goessl/vector](https://goessl.github.io/vector).
+
 ## Design
 
 ### Coefficient order
@@ -32,16 +34,16 @@ This ways the coefficient indices correspond to the monomial exponent (or the ba
 
 ## Roadmap
 
-- Documentation
-  - [ ] [Karatsuba][poly.functional.polymul_karatsuba]
-  - [ ] Graph view, perfect "See also" references
 - Modules
   - [ ] Hermite polynomials module
   - [ ] Object oriented module
   - [ ] Parallelised module
   - [ ] Multivariate module
+- Documentation
+  - [ ] [`polymul_karatsuba`][poly.functional.polymul_karatsuba]
+  - [ ] Consistent `See also` links
+  - [ ] Consisten use of `Horner` / `Clenshaw`
 - Algorithms
-  - [ ] `polydivmod`
   - [ ] `polysqrt`
   - [ ] `polyroots` only if there is a clean algorithm
   - [ ] [Knuth–Eve evaluation](https://en.wikipedia.org/wiki/Knuth–Eve_algorithm)
