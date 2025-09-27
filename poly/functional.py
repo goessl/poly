@@ -15,6 +15,7 @@ __all__ = (#creation
            #evaluation
            'polyval', 'polyval_naive', 'polyval_iterative', 'polyval_horner', 'polyvalgen', 'polyvalzero',
            'polycom', 'polycom_naive', 'polycom_iterative', 'polycom_horner', 'polycomgen',
+           'polyshift',
            #arithmetic
            'polypos', 'polyneg',
            'polyadd', 'polyaddc', 'polysub', 'polyscalarmul',
@@ -440,7 +441,7 @@ def polycom_horner(p, q):
     """
     return reduce(lambda a, pi: polyaddc(polymul(a, q), pi), reversed(p), polyzero)
 
-def polycom(p, q, method='horner'):
+def polycom(p, q, method='iterative'):
     r"""Return the polynomial composition of `p` & `q`.
     
     $$
@@ -485,7 +486,7 @@ def polyshift(p, s):
     --------
     - based on: [`polycom`][poly.functional.polycom]
     """
-    return polycom(p, (-s, 1))
+    return polycom(p, polyaddc(polyx, -s))
 
 
 #arithmetic
