@@ -3,6 +3,9 @@ import numpy as np
 from random import gauss, randint
 from functools import reduce
 from fractions import Fraction
+from sympy import Poly as spPoly
+from sympy.abc import x as spx
+import pytest
 
 
 
@@ -84,6 +87,18 @@ def test_polyval():
     for method in ('naive', 'iterative', 'horner'):
         assert polyval(p, x, method) == y \
                 and isinstance(polyval(p, x, method), Fraction)
+    
+    #method error handling
+    with pytest.raises(ValueError, match='Invalid method'):
+        polyval((1, 2, 3), 4, method='I dont want to do this anymore')
+
+#polyvalgen gets tested with polyval_iterative
+
+def test_polyvalzero():
+    assert polyvalzero(polyzero) == 0
+    assert polyvalzero(polyone) == 1
+    assert polyvalzero(polyx) == 0
+    assert polyvalzero((5, 4, 3)) == 5
 
 def test_polycom():
     def nppolycom(p, q):
@@ -106,6 +121,14 @@ def test_polycom():
         assert polycom(polyzero, polyzero, method) == polyzero
         assert polycom(polyzero, polyone, method) == polyzero
         assert polycom((4, 5, 6), polyzero, method) == (4,)
+    
+    with pytest.raises(ValueError, match='Invalid method'):
+        polycom((1, 2, 3), (4, 5, 6), method='I dont want to do this anymore')
+
+def test_polyshift():
+    assert polyshift(polyzero, 5) == polyzero
+    assert polyshift(polyone, 5) == polyone
+    assert polyshift((1, 2, 3), 5) == polycom((1, 2, 3), polyaddc(polyx, -5))
 
 
 #arithmetic
@@ -163,6 +186,9 @@ def test_polymul():
         assert polymul(p, method=method) == p
         assert polymul(p, polyzero, method=method) == polyzero
         assert polymul(p, polyone, method=method) == p
+    
+    with pytest.raises(ValueError, match='Invalid method'):
+        polymul((1, 2, 3), (4, 5, 6), method='I dont want to do this anymore')
 
 def test_polymulx():
     for _ in range(1000):
@@ -177,6 +203,9 @@ def test_polypow():
                     np.polynomial.polynomial.polypow(p, n))
         assert polyeq(polypow(p, 0, method), polyone)
         assert polyeq(polypow(p, 1, method), p)
+    
+    with pytest.raises(ValueError, match='Invalid method'):
+        polypow((1, 2, 3), 4, method='I dont want to do this anymore')
 
 #def test_polydiv():
 #    for _ in range(1000):
@@ -205,3 +234,11 @@ def test_polyantider():
     assert polyantider(polyzero, c=1) == polyone
     assert polyantider(polyone) == polyx
     assert polyantider(polyzero, n=2, c=(1, 2)) == (2, 1)
+
+
+#sympy
+def test_polysympify():
+    assert polysympify((1, 2, 3)) == spPoly(1+2*spx+3*spx**2)
+
+def test_polyunsympify():
+    assert polyunsympify(spPoly(1+2*spx+3*spx**2)) == (1, 2, 3)
