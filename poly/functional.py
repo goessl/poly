@@ -769,8 +769,9 @@ def polypow_naive(p, n):
     - for any implementation: [`polypow`][poly.functional.polypow]
     - other implementations:
     [`polypow_binary`][poly.functional.polypow_binary]
+    - uses: [`polycomgen`][poly.functional.polycomgen]
     """
-    return reduce(polymul, repeat(p, n), polyone)
+    return next(islice(polycomgen(p), n, None))
 
 def polypow_binary(p, n):
     """Return the polynomial `p` raised to the nonnegative `n`-th power.
