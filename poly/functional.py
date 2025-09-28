@@ -158,7 +158,11 @@ def polyeq(p, q):
     return veceq(p, q)
 
 def polytrim(p, tol=1e-9):
-    """Remove all leading near zero (`abs(p_i)<=tol`) coefficients.
+    r"""Remove all leading near zero (`abs(p_i)<=tol`) coefficients.
+    
+    $$
+        \sum_{k=0}^na_kx^k \ \text{where} \ n=\max\{\, j\mid |v_{j-1}|>\text{tol}\,\}\cup\{-1\}
+    $$
     
     See also
     --------
@@ -818,6 +822,7 @@ def polypow(p, n, method='binary'):
     --------
     - implementatiosn: [`polypow_naive`][poly.functional.polypow_naive],
     [`polypow_binary`][poly.functional.polypow_binary]
+    - for sequence of powers: [`polycomgen`][poly.functional.polycomgen]
     
     References
     ----------
@@ -850,10 +855,6 @@ def polyder(p, n=1):
     $$
         p^{(n)}
     $$
-    
-    See also
-    --------
-    - inverse: [`polyantider`][poly.functional.polyantider]
     """
     #https://docs.python.org/3/library/itertools.html#itertools-recipes
     for _ in range(n):
@@ -875,10 +876,6 @@ def polyantider(p, n=1, c=0):
     Integration is called antiderivative (`antider`)
     instead of integrate ('int') to avoid keyword collisions.
     For example `Poly((1, 2, 3)).int()`.
-    
-    See also
-    --------
-    - inverse: [`polyder`][poly.functional.polyder]
     """
     try:
         for i in range(n):

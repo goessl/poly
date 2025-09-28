@@ -31,9 +31,6 @@ or try to infer the type from an argument (e.g.
 
 ::: poly.functional
     options:
-      heading_level: 3
-      show_root_toc_entry: false
-      show_symbol_type_heading: true
       members:
         - polyzero
         - polyone
@@ -43,53 +40,56 @@ or try to infer the type from an argument (e.g.
         - polyrandn
         - polyfromroots
 
----
-
 ## Utility
 
 ::: poly.functional
     options:
-      heading_level: 3
-      show_root_toc_entry: false
-      show_symbol_type_heading: true
       members:
         - polyeq
         - polytrim
         - polyround
         - polydeg
 
----
-
 ## Evaluation
 
 ::: poly.functional
     options:
-      heading_level: 3
-      show_root_toc_entry: false
-      show_symbol_type_heading: true
       members:
         - polyval
+
+::: poly.functional
+    options:
+      heading_level: 4
+      members:
         - polyval_naive
         - polyval_iterative
         - polyval_horner
+
+::: poly.functional
+    options:
+      members:
         - polyvalgen
         - polyvalzero
         - polycom
+
+::: poly.functional
+    options:
+      heading_level: 4
+      members:
         - polycom_naive
         - polycom_iterative
         - polycom_horner
+
+::: poly.functional
+    options:
+      members:
         - polycomgen
         - polyshift
-
----
 
 ## Arithmetic
 
 ::: poly.functional
     options:
-      heading_level: 3
-      show_root_toc_entry: false
-      show_symbol_type_heading: true
       members:
         - polypos
         - polyneg
@@ -103,35 +103,39 @@ or try to infer the type from an argument (e.g.
         - polyscalarmod
         - polyscalardivmod
         - polymul
+
+::: poly.functional
+    options:
+      heading_level: 4
+      members:
         - polymul_naive
         - polymul_karatsuba
+
+::: poly.functional
+    options:
+      members:
         - polymulx
         - polypow
+
+::: poly.functional
+    options:
+      heading_level: 4
+      members:
         - polypow_naive
         - polypow_binary
-
----
 
 ## Calculus
 
 ::: poly.functional
     options:
-      heading_level: 3
-      show_root_toc_entry: false
-      show_symbol_type_heading: true
       members:
         - polyder
         - polyantider
-
----
 
 ## Conversion
 
 ::: poly.functional
     options:
-      heading_level: 3
-      show_root_toc_entry: false
-      show_symbol_type_heading: true
       members:
         - polysympify
         - polyunsympify
