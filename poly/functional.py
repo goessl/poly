@@ -211,6 +211,43 @@ def polydeg(p):
 
 
 #evaluation
+def polyval(p, x, method='horner'):
+    """Return the value of polynomial `p` evaluated at point `x`.
+    
+    $$
+        p(x)
+    $$
+    
+    Available methods are
+    
+    - [`naive`][poly.functional.polyval_naive],
+    - [`iterative`][poly.functional.polyval_iterative] &
+    - [`horner`][poly.functional.polyval_horner] (`p` must be reversible).
+    
+    See also
+    --------
+    - implementations: [`polyval_naive`][poly.functional.polyval_naive],
+    [`polyval_iterative`][poly.functional.polyval_iterative],
+    [`polyval_horner`][poly.functional.polyval_horner]
+    - for $x=0$: [`polyvalzero`][poly.functional.polyvalzero]
+    - for consecutive monomials: [`polyvalgen`][poly.functional.polyvalgen]
+    - for polynomial arguments: [`polycom`][poly.functional.polycom]
+    
+    References
+    ----------
+    - <https://en.wikipedia.org/wiki/Horner%27s_method#Efficiency>
+    - <https://en.wikipedia.org/wiki/Polynomial_evaluation>
+    """
+    match method:
+        case 'naive':
+            return polyval_naive(p, x)
+        case 'iterative':
+            return polyval_iterative(p, x)
+        case 'horner':
+            return polyval_horner(p, x)
+        case _:
+            raise ValueError('Invalid method')
+
 def polyval_naive(p, x):
     """Return the value of polynomial `p` evaluated at point `x`.
     
@@ -239,25 +276,6 @@ def polyval_naive(p, x):
     
     #works for iterables (without len) and is type-safe
     return sum(map(mul, p, map(pow, repeat(x), count())), start=type(x)(0))
-
-def polyvalgen(x):
-    r"""Yield the powers of the value `x`.
-    
-    $$
-        (x^n)_{n\in\mathbb{N}_0} = (1, x, x^2, \dots)
-    $$
-    
-    Uses iterative multiplication to calculate monomials consecutively.
-    
-    See also
-    --------
-    - used in: [`polyval_iterative`][poly.functional.polyval_iterative]
-    - for polynomial arguments: [`polycomgen`][poly.functional.polycomgen]
-    """
-    yield (y := type(x)(1))
-    while True:
-        y *= x
-        yield y
 
 def polyval_iterative(p, x):
     """Return the value of polynomial `p` evaluated at point `x`.
@@ -308,42 +326,24 @@ def polyval_horner(p, x):
     """
     return reduce(lambda a, pi: a*x+pi, reversed(p), type(x)(0))
 
-def polyval(p, x, method='horner'):
-    """Return the value of polynomial `p` evaluated at point `x`.
+def polyvalgen(x):
+    r"""Yield the powers of the value `x`.
     
     $$
-        p(x)
+        (x^n)_{n\in\mathbb{N}_0} = (1, x, x^2, \dots)
     $$
     
-    Available methods are
-    
-    - [`naive`][poly.functional.polyval_naive],
-    - [`iterative`][poly.functional.polyval_iterative] &
-    - [`horner`][poly.functional.polyval_horner] (`p` must be reversible).
+    Uses iterative multiplication to calculate monomials consecutively.
     
     See also
     --------
-    - implementations: [`polyval_naive`][poly.functional.polyval_naive],
-    [`polyval_iterative`][poly.functional.polyval_iterative],
-    [`polyval_horner`][poly.functional.polyval_horner]
-    - for $x=0$: [`polyvalzero`][poly.functional.polyvalzero]
-    - for consecutive monomials: [`polyvalgen`][poly.functional.polyvalgen]
-    - for polynomial arguments: [`polycom`][poly.functional.polycom]
-    
-    References
-    ----------
-    - <https://en.wikipedia.org/wiki/Horner%27s_method#Efficiency>
-    - <https://en.wikipedia.org/wiki/Polynomial_evaluation>
+    - used in: [`polyval_iterative`][poly.functional.polyval_iterative]
+    - for polynomial arguments: [`polycomgen`][poly.functional.polycomgen]
     """
-    match method:
-        case 'naive':
-            return polyval_naive(p, x)
-        case 'iterative':
-            return polyval_iterative(p, x)
-        case 'horner':
-            return polyval_horner(p, x)
-        case _:
-            raise ValueError('Invalid method')
+    yield (y := type(x)(1))
+    while True:
+        y *= x
+        yield y
 
 def polyvalzero(p):
     """Return the value of polynomial `p` evaluated at point 0.
@@ -359,6 +359,38 @@ def polyvalzero(p):
     - for any argument: [`polyval`][poly.functional.polyval]
     """
     return next(iter(p), 0)
+
+def polycom(p, q, method='iterative'):
+    r"""Return the polynomial composition of `p` & `q`.
+    
+    $$
+        p\circ q \qquad \text{or similarly} \qquad p(q)
+    $$
+    
+    Available methods are
+    
+    - [`naive`][poly.functional.polycom_naive],
+    - [`iterative`][poly.functional.polycom_iterative] &
+    - [`horner`][poly.functional.polycom_horner] (`p` must be reversible).
+    
+    See also
+    --------
+    - implementations: [`polycom_naive`][poly.functional.polycom_naive],
+    [`polycom_iterative`][poly.functional.polycom_iterative],
+    [`polycom_horner`][poly.functional.polycom_horner]
+    - for $q=x-s$: [`polyshift`][poly.functional.polyshift]
+    - based on: [`polyval`][poly.functional.polyval]
+    """
+    q = tuple(q)
+    match method:
+        case 'naive':
+            return polycom_naive(p, q)
+        case 'iterative':
+            return polycom_iterative(p, q)
+        case 'horner':
+            return polycom_horner(p, q)
+        case _:
+            raise ValueError('Invalid method')
 
 def polycom_naive(p, q):
     r"""Return the polynomial composition of `p` & `q`.
@@ -380,27 +412,6 @@ def polycom_naive(p, q):
     - based on: [`polyval_naive`][poly.functional.polyval_naive]
     """
     return polyadd(*(polyscalarmul(pi, polypow(q, i)) for i, pi in enumerate(p)))
-
-def polycomgen(p):
-    r"""Yield the powers of the polynomial `p`.
-    
-    $$
-        (p^n)_{n\in\mathbb{N}_0} = (1, p, p^2, \dots)
-    $$
-    
-    Uses iterative multiplication to calculate powers consecutively.
-    
-    `p` must be a sequence.
-    
-    See also
-    --------
-    - used in: [`polycom_iterative`][poly.functional.polycom_iterative]
-    - based on: [`polyvalgen`][poly.functional.polyvalgen]
-    """
-    yield (q := polyone)
-    while True:
-        q = polymul(q, p)
-        yield q
 
 def polycom_iterative(p, q):
     r"""Return the polynomial composition of `p` & `q`.
@@ -445,37 +456,26 @@ def polycom_horner(p, q):
     """
     return reduce(lambda a, pi: polyaddc(polymul(a, q), pi), reversed(p), polyzero)
 
-def polycom(p, q, method='iterative'):
-    r"""Return the polynomial composition of `p` & `q`.
+def polycomgen(p):
+    r"""Yield the powers of the polynomial `p`.
     
     $$
-        p\circ q \qquad \text{or similarly} \qquad p(q)
+        (p^n)_{n\in\mathbb{N}_0} = (1, p, p^2, \dots)
     $$
     
-    Available methods are
+    Uses iterative multiplication to calculate powers consecutively.
     
-    - [`naive`][poly.functional.polycom_naive],
-    - [`iterative`][poly.functional.polycom_iterative] &
-    - [`horner`][poly.functional.polycom_horner] (`p` must be reversible).
+    `p` must be a sequence.
     
     See also
     --------
-    - implementations: [`polycom_naive`][poly.functional.polycom_naive],
-    [`polycom_iterative`][poly.functional.polycom_iterative],
-    [`polycom_horner`][poly.functional.polycom_horner]
-    - for $q=x-s$: [`polyshift`][poly.functional.polyshift]
-    - based on: [`polyval`][poly.functional.polyval]
+    - used in: [`polycom_iterative`][poly.functional.polycom_iterative]
+    - based on: [`polyvalgen`][poly.functional.polyvalgen]
     """
-    q = tuple(q)
-    match method:
-        case 'naive':
-            return polycom_naive(p, q)
-        case 'iterative':
-            return polycom_iterative(p, q)
-        case 'horner':
-            return polycom_horner(p, q)
-        case _:
-            raise ValueError('Invalid method')
+    yield (q := polyone)
+    while True:
+        q = polymul(q, p)
+        yield q
 
 def polyshift(p, s):
     """Return the polynomial `p` shifted by `s` on the abscissa.
@@ -633,6 +633,38 @@ def polyscalardivmod(p, a):
     """
     return vecdivmod(p, a)
 
+def polymul(*ps, method='naive'):
+    r"""Return the product of polynomials.
+    
+    $$
+        p_0 p_1 \cdots
+    $$
+    
+    Available methods are
+    
+    - [`naive`][poly.functional.polymul_naive] &
+    - [`karatsuba`][poly.functional.polymul_karatsuba].
+    
+    See also
+    --------
+    - implementations: [`polymul_naive`][poly.functional.polymul_naive],
+    [`polymul_karatsuba`][poly.functional.polymul_karatsuba]
+    - for scalar factor: [`polyscalarmul`][poly.functional.polyscalarmul]
+    - for monomial factor: [`polymulx`][poly.functional.polymulx]
+    
+    References
+    ----------
+    - <https://en.wikipedia.org/wiki/Karatsuba_algorithm>
+    """
+    ps = tuple(map(tuple, ps))
+    match method:
+        case 'naive':
+            return reduce(polymul_naive, ps, polyone)
+        case 'karatsuba':
+            return reduce(polymul_karatsuba, ps, polyone)
+        case _:
+            raise ValueError('Invalid method')
+
 def polymul_naive(p, q):
     """Return the product of two polynomials.
     
@@ -709,38 +741,6 @@ def polymul_karatsuba(p, q):
     #return vecadd(rl, (0,)*len(p)+ru)
     return rl[:len(p)] + polyadd(rl[len(p):], ru)
 
-def polymul(*ps, method='naive'):
-    r"""Return the product of polynomials.
-    
-    $$
-        p_0 p_1 \cdots
-    $$
-    
-    Available methods are
-    
-    - [`naive`][poly.functional.polymul_naive] &
-    - [`karatsuba`][poly.functional.polymul_karatsuba].
-    
-    See also
-    --------
-    - implementations: [`polymul_naive`][poly.functional.polymul_naive],
-    [`polymul_karatsuba`][poly.functional.polymul_karatsuba]
-    - for scalar factor: [`polyscalarmul`][poly.functional.polyscalarmul]
-    - for monomial factor: [`polymulx`][poly.functional.polymulx]
-    
-    References
-    ----------
-    - <https://en.wikipedia.org/wiki/Karatsuba_algorithm>
-    """
-    ps = tuple(map(tuple, ps))
-    match method:
-        case 'naive':
-            return reduce(polymul_naive, ps, polyone)
-        case 'karatsuba':
-            return reduce(polymul_karatsuba, ps, polyone)
-        case _:
-            raise ValueError('Invalid method')
-
 def polymulx(p, n=1):
     """Return the product of polynomial `p` and a monomial of degree `n`.
     
@@ -756,6 +756,37 @@ def polymulx(p, n=1):
     - wraps: [`vector.vecrshift`](https://goessl.github.io/vector/functional/#vector.functional.vecrshift)
     """
     return vecrshift(p, n)
+
+def polypow(p, n, method='binary'):
+    """Return the polynomial `p` raised to the nonnegative `n`-th power.
+    
+    $$
+        p^n
+    $$
+    
+    Available methods are 
+    
+    - [`naive`][poly.functional.polypow_naive] &
+    - [`binary`][poly.functional.polypow_binary].
+    
+    See also
+    --------
+    - implementatiosn: [`polypow_naive`][poly.functional.polypow_naive],
+    [`polypow_binary`][poly.functional.polypow_binary]
+    - for sequence of powers: [`polycomgen`][poly.functional.polycomgen]
+    
+    References
+    ----------
+    - <https://en.wikipedia.org/wiki/Exponentiation_by_squaring>
+    """
+    p = tuple(p)
+    match method:
+        case 'naive':
+            return polypow_naive(p, n)
+        case 'binary':
+            return polypow_binary(p, n)
+        case _:
+            raise ValueError('Invalid method')
 
 def polypow_naive(p, n):
     """Return the polynomial `p` raised to the nonnegative `n`-th power.
@@ -805,37 +836,6 @@ def polypow_binary(p, n):
         p = polymul(p, p)
         n //= 2
     return r
-
-def polypow(p, n, method='binary'):
-    """Return the polynomial `p` raised to the nonnegative `n`-th power.
-    
-    $$
-        p^n
-    $$
-    
-    Available methods are 
-    
-    - [`naive`][poly.functional.polypow_naive] &
-    - [`binary`][poly.functional.polypow_binary].
-    
-    See also
-    --------
-    - implementatiosn: [`polypow_naive`][poly.functional.polypow_naive],
-    [`polypow_binary`][poly.functional.polypow_binary]
-    - for sequence of powers: [`polycomgen`][poly.functional.polycomgen]
-    
-    References
-    ----------
-    - <https://en.wikipedia.org/wiki/Exponentiation_by_squaring>
-    """
-    p = tuple(p)
-    match method:
-        case 'naive':
-            return polypow_naive(p, n)
-        case 'binary':
-            return polypow_binary(p, n)
-        case _:
-            raise ValueError('Invalid method')
 
 #def polydiv(n, d):
 #    """Return $(q, r)$ such that $n=qd+r$."""
