@@ -11,6 +11,7 @@ copyright: Copyright &copy; 2022 - 2025 Sebastian Gössl
 nav:
   - Home: index.md
   - functional.md
+  - hermite_functional.md
 
 theme:
   name: material

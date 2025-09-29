@@ -35,14 +35,14 @@ This ways the coefficient indices correspond to the monomial exponent (or the ba
 ## Roadmap
 
 - Modules
-  - [ ] Hermite polynomials module
+  - [x] Hermite polynomials module
   - [ ] Object oriented module
   - [ ] Parallelised module
   - [ ] Multivariate module
 - Documentation
   - [ ] [`polymul_karatsuba`][poly.functional.polymul_karatsuba]
   - [ ] Consistent `See also` links
-  - [ ] Consisten use of `Horner` / `Clenshaw`
+  - [ ] Consistent use of `Horner` / `Clenshaw`
 - Algorithms
   - [ ] `polysqrt`
   - [ ] `polyroots` only if there is a clean algorithm
