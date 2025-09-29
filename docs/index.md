@@ -70,7 +70,7 @@ This package heavily depends on and is the natural extension of [goessl/vector](
 | Integration             | [`polyantider`][poly.functional.polyantider]               |
 | **Conversion**          |                                                            |
 | Sympification           | [`polysympify`][poly.functional.polysympify]               |
-| Unsympification         | [`polyunsympify`][poly.functional.polyunsympify]           | 
+| Unsympification         | [`polyunsympify`][poly.functional.polyunsympify]           |
 
 ## Design
 

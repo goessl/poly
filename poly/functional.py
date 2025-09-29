@@ -53,6 +53,10 @@ See also
 --------
 - for any degree: [`polymono`][poly.functional.polymono]
 - wraps: [`vector.veczero`](https://goessl.github.io/vector/functional/#vector.functional.veczero)
+
+References
+----------
+- `numpy` equivalent: [`numpy.polynomial.polynomial.polyzero`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.polyzero.html)
 """
 polyone = (1, )
 """Constant one polynomial.
@@ -66,6 +70,10 @@ A tuple with a single one: `(1,)`.
 See also
 --------
 - for any degree: [`polymono`][poly.functional.polymono]
+
+References
+----------
+- `numpy` equivalent: [`numpy.polynomial.polynomial.polyone`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.polyone.html)
 """
 polyx = (0, 1)
 """Identity polynomial.
@@ -79,6 +87,10 @@ A tuple with a zero and a one `(0, 1)`.
 See also
 --------
 - for any degree: [`polymono`][poly.functional.polymono]
+
+References
+----------
+- `numpy` equivalent: [`numpy.polynomial.polynomial.polyx`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.polyx.html)
 """
 
 def polymono(n, c=1):
@@ -138,7 +150,8 @@ def polyfromroots(*xs):
     
     References
     ----------
-    - <https://more-itertools.readthedocs.io/en/stable/api.html#more_itertools.polynomial_from_roots>
+    - [more_itertools.polynomial_from_roots](https://more-itertools.readthedocs.io/en/stable/api.html#more_itertools.polynomial_from_roots)
+    - `numpy` equivalent: [`numpy.polynomial.polynomial.polyfromroots`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.polyfromroots.html)
     """
     return polymul(*zip(map(neg, xs), repeat(1)))
 
@@ -167,6 +180,7 @@ def polytrim(p, tol=1e-9):
     See also
     --------
     - wraps: [`vector.vectrim`](https://goessl.github.io/vector/functional/#vector.functional.vectrim)
+    - `numpy` equivalent: [`numpy.polynomial.polynomial.polytrim`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.polytrim.html)
     """
     return vectrim(p, tol)
 
@@ -205,7 +219,7 @@ def polydeg(p):
     
     References
     ----------
-    - <https://en.wikipedia.org/wiki/Degree_of_a_polynomial#Degree_of_the_zero_polynomial>
+    - [Wikipedia - Degree of a polynomial - Degree of the zero polynomial](https://en.wikipedia.org/wiki/Degree_of_a_polynomial#Degree_of_the_zero_polynomial)
     """
     return len(p) - 1
 
@@ -235,8 +249,9 @@ def polyval(p, x, method='horner'):
     
     References
     ----------
-    - <https://en.wikipedia.org/wiki/Horner%27s_method#Efficiency>
-    - <https://en.wikipedia.org/wiki/Polynomial_evaluation>
+    - [Wikipedia - Horner's method - Efficiency](https://en.wikipedia.org/wiki/Horner%27s_method#Efficiency)
+    - [Wikipedia - Polynomial evaluation](https://en.wikipedia.org/wiki/Polynomial_evaluation)
+    - `numpy` equivalent: [`numpy.polynomial.polynomial.polyval`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.polyval.html)
     """
     match method:
         case 'naive':
@@ -267,8 +282,8 @@ def polyval_naive(p, x):
     
     References
     ----------
-    - <https://en.wikipedia.org/wiki/Horner%27s_method#Efficiency>
-    - <https://en.wikipedia.org/wiki/Polynomial_evaluation>
+    - [Wikipedia - Horner's method - Efficiency](https://en.wikipedia.org/wiki/Horner%27s_method#Efficiency)
+    - [Wikipedia - Polynomial evaluation](https://en.wikipedia.org/wiki/Polynomial_evaluation)
     """
     #https://docs.python.org/3/library/itertools.html#itertools-recipes
     #wouldn't need "if not p", but then the result may be of other type
@@ -297,7 +312,7 @@ def polyval_iterative(p, x):
     
     References
     ----------
-    - <https://en.wikipedia.org/wiki/Horner%27s_method#Efficiency>
+    - [Wikipedia - Horner's method - Efficiency](https://en.wikipedia.org/wiki/Horner%27s_method#Efficiency)
     """
     return sum(map(mul, p, polyvalgen(x)), start=type(x)(0))
 
@@ -322,7 +337,7 @@ def polyval_horner(p, x):
     
     References
     ----------
-    - <https://en.wikipedia.org/wiki/Horner%27s_method>
+    - [Wikipedia - Horner's method](https://en.wikipedia.org/wiki/Horner%27s_method)
     """
     return reduce(lambda a, pi: a*x+pi, reversed(p), type(x)(0))
 
@@ -531,6 +546,10 @@ def polyadd(*ps):
     --------
     - for constant or monomial: [`polyaddc`][poly.functional.polyaddc]
     - wraps: [`vector.vecadd`](https://goessl.github.io/vector/functional/#vector.functional.vecadd)
+    
+    References
+    ----------
+    - `numpy` equivalent: [`numpy.polynomial.polynomial.polyadd`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.polyadd.html)
     """
     return vecadd(*ps)
 
@@ -561,6 +580,10 @@ def polysub(p, q):
     --------
     - for constant or monomial: [`polyaddc`][poly.functional.polyaddc]
     - wraps: [`vector.vecsub`](https://goessl.github.io/vector/functional/#vector.functional.vecsub)
+    
+    References
+    ----------
+    - `numpy` equivalent: [`numpy.polynomial.polynomial.polysub`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.polysub.html)
     """
     return vecsub(p, q)
 
@@ -654,7 +677,7 @@ def polymul(*ps, method='naive'):
     
     References
     ----------
-    - <https://en.wikipedia.org/wiki/Karatsuba_algorithm>
+    - `numpy` equivalent: [`numpy.polynomial.polynomial.polymul`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.polymul.html)
     """
     ps = tuple(map(tuple, ps))
     match method:
@@ -730,7 +753,7 @@ def polymul_karatsuba(p, q):
     
     References
     ----------
-    - <https://en.wikipedia.org/wiki/Karatsuba_algorithm>
+    - [Wikipedia - Karatsuba algorithm](https://en.wikipedia.org/wiki/Karatsuba_algorithm)
     """
     if not p or not q:
         return ()
@@ -754,6 +777,10 @@ def polymulx(p, n=1):
     --------
     - for polynomial factor: [`polymul`][poly.functional.polymul]
     - wraps: [`vector.vecrshift`](https://goessl.github.io/vector/functional/#vector.functional.vecrshift)
+    
+    References
+    ----------
+    - `numpy` equivalent: [`numpy.polynomial.polynomial.polymulx`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.polymulx.html)
     """
     return vecrshift(p, n)
 
@@ -769,15 +796,17 @@ def polypow(p, n, method='binary'):
     - [`naive`][poly.functional.polypow_naive] &
     - [`binary`][poly.functional.polypow_binary].
     
+    TODO: mod parameter
+    
     See also
     --------
-    - implementatiosn: [`polypow_naive`][poly.functional.polypow_naive],
+    - implementations: [`polypow_naive`][poly.functional.polypow_naive],
     [`polypow_binary`][poly.functional.polypow_binary]
     - for sequence of powers: [`polycomgen`][poly.functional.polycomgen]
     
     References
     ----------
-    - <https://en.wikipedia.org/wiki/Exponentiation_by_squaring>
+    - `numpy` equivalent: [`numpy.polynomial.polynomial.polypow`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.polypow.html)
     """
     p = tuple(p)
     match method:
@@ -827,7 +856,7 @@ def polypow_binary(p, n):
     
     References
     ----------
-    - <https://en.wikipedia.org/wiki/Exponentiation_by_squaring>
+    - [Wikipedia - Exponentiation by squaring](https://en.wikipedia.org/wiki/Exponentiation_by_squaring)
     """
     r = polyone
     while n:
@@ -855,6 +884,10 @@ def polyder(p, n=1):
     $$
         p^{(n)}
     $$
+    
+    References
+    ----------
+    - `numpy` equivalent: [`numpy.polynomial.polynomial.polyder`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.polyder.html)
     """
     #https://docs.python.org/3/library/itertools.html#itertools-recipes
     for _ in range(n):
@@ -876,6 +909,10 @@ def polyantider(p, n=1, c=0):
     Integration is called antiderivative (`antider`)
     instead of integrate ('int') to avoid keyword collisions.
     For example `Poly((1, 2, 3)).int()`.
+    
+    References
+    ----------
+    - `numpy` equivalent: [`numpy.polynomial.polynomial.polyint`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.polyint.html)
     """
     try:
         for i in range(n):
@@ -887,19 +924,9 @@ def polyantider(p, n=1, c=0):
 
 #sympy
 def polysympify(p, symbol=spx):
-    """Return the coefficient iterable `p` as a [`sympy.Poly`](https://docs.sympy.org/latest/modules/polys/reference.html#sympy.polys.polytools.Poly).
-    
-    See also
-    --------
-    - inverse: [`polyunsympify`][poly.functional.polyunsympify]
-    """
+    """Return the coefficient iterable `p` as a [`sympy.Poly`](https://docs.sympy.org/latest/modules/polys/reference.html#sympy.polys.polytools.Poly)."""
     return sp.Poly.from_list(tuple(reversed(tuple(p))), symbol)
 
 def polyunsympify(p):
-    """Return [`sympy.Poly(p)`](https://docs.sympy.org/latest/modules/polys/reference.html#sympy.polys.polytools.Poly) as a coefficient `tuple`.
-    
-    See also
-    --------
-    - inverse: [`polysympify`][poly.functional.polysympify]
-    """
+    """Return [`sympy.Poly(p)`](https://docs.sympy.org/latest/modules/polys/reference.html#sympy.polys.polytools.Poly) as a coefficient `tuple`."""
     return tuple(reversed(p.all_coeffs()))
