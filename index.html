@@ -369,6 +369,28 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="hermite_functional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hermite Polynomials
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -493,204 +515,319 @@
 <tr>
 <th>Operation</th>
 <th><a href="functional/">poly</a></th>
+<th><a href="hermite_functional/">hermite</a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>Creation</strong></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
-<td>Zero constant</td>
+<td><span class="arithmatex">\(0\)</span></td>
 <td><a class="autorefs autorefs-internal" title="            polyzero = ()" href="functional/#poly.functional.polyzero"><code>polyzero</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermzero = veczero" href="hermite_functional/#poly.hermite_functional.hermzero"><code>hermzero</code></a></td>
 </tr>
 <tr>
-<td>One constant</td>
+<td><span class="arithmatex">\(1\)</span></td>
 <td><a class="autorefs autorefs-internal" title="            polyone = (1,)" href="functional/#poly.functional.polyone"><code>polyone</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermone = (1,)" href="hermite_functional/#poly.hermite_functional.hermone"><code>hermone</code></a></td>
 </tr>
 <tr>
-<td>Identity</td>
+<td><span class="arithmatex">\(x\)</span></td>
 <td><a class="autorefs autorefs-internal" title="            polyx = (0, 1)" href="functional/#poly.functional.polyx"><code>polyx</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermx = (Fraction(0), Fraction(1, 2))" href="hermite_functional/#poly.hermite_functional.hermx"><code>hermx</code></a></td>
 </tr>
 <tr>
-<td>Basis</td>
+<td><span class="arithmatex">\(x^n\)</span></td>
 <td><a class="autorefs autorefs-internal" title="            polymono(n, c=1)" href="functional/#poly.functional.polymono"><code>polymono</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermmono(n, method='explicit')" href="hermite_functional/#poly.hermite_functional.hermmono"><code>hermmono</code></a></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(H_0\)</span></td>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            H0 = (1,)" href="hermite_functional/#poly.hermite_functional.H0"><code>H0</code></a></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(H_1\)</span></td>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            H1 = (0, 2)" href="hermite_functional/#poly.hermite_functional.H1"><code>H1</code></a></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(H_2\)</span></td>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            H2 = (-2, 0, 4)" href="hermite_functional/#poly.hermite_functional.H2"><code>H2</code></a></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(H_n\)</span></td>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            herm(n, method='iterative')" href="hermite_functional/#poly.hermite_functional.herm"><code>herm</code></a></td>
 </tr>
 <tr>
 <td>Uniform random</td>
 <td><a class="autorefs autorefs-internal" title="            polyrand(n)" href="functional/#poly.functional.polyrand"><code>polyrand</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermrandn(n, normed=True, mu=0, sigma=1)" href="hermite_functional/#poly.hermite_functional.hermrandn"><code>hermrand</code></a></td>
 </tr>
 <tr>
 <td>Normal random</td>
 <td><a class="autorefs autorefs-internal" title="            polyrandn(n, normed=True, mu=0, sigma=1)" href="functional/#poly.functional.polyrandn"><code>polyrandn</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermrandn(n, normed=True, mu=0, sigma=1)" href="hermite_functional/#poly.hermite_functional.hermrandn"><code>hermrandn</code></a></td>
 </tr>
 <tr>
 <td>From roots</td>
 <td><a class="autorefs autorefs-internal" title="            polyfromroots(*xs)" href="functional/#poly.functional.polyfromroots"><code>polyfromroots</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermfromroots(*xs)" href="hermite_functional/#poly.hermite_functional.hermfromroots"><code>hermfromroots</code></a></td>
 </tr>
 <tr>
 <td><strong>Utility</strong></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td>Comparison</td>
 <td><a class="autorefs autorefs-internal" title="            polyeq(p, q)" href="functional/#poly.functional.polyeq"><code>polyeq</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermeq(g, h)" href="hermite_functional/#poly.hermite_functional.hermeq"><code>hermeq</code></a></td>
 </tr>
 <tr>
 <td>Trimming</td>
 <td><a class="autorefs autorefs-internal" title="            polytrim(p, tol=1e-09)" href="functional/#poly.functional.polytrim"><code>polytrim</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermtrim(h, tol=1e-09)" href="hermite_functional/#poly.hermite_functional.hermtrim"><code>hermtrim</code></a></td>
 </tr>
 <tr>
 <td>Rounding</td>
 <td><a class="autorefs autorefs-internal" title="            polyround(p, ndigits=None)" href="functional/#poly.functional.polyround"><code>polyround</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermround(h, ndigits=None)" href="hermite_functional/#poly.hermite_functional.hermround"><code>hermround</code></a></td>
 </tr>
 <tr>
 <td>Degree</td>
 <td><a class="autorefs autorefs-internal" title="            polydeg(p)" href="functional/#poly.functional.polydeg"><code>polydeg</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermdeg(h)" href="hermite_functional/#poly.hermite_functional.hermdeg"><code>hermdeg</code></a></td>
 </tr>
 <tr>
-<td><strong>Application</strong></td>
+<td><strong>Conversion</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(H\to P\)</span></td>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            herm2poly(h, method='iterative')" href="hermite_functional/#poly.hermite_functional.herm2poly"><code>herm2poly</code></a></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            herm2poly_naive(h)" href="hermite_functional/#poly.hermite_functional.herm2poly_naive"><code>herm2poly</code></a></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            herm2poly_iterative(h)" href="hermite_functional/#poly.hermite_functional.herm2poly_iterative"><code>herm2poly</code></a></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            herm2poly_clenshaw(h)" href="hermite_functional/#poly.hermite_functional.herm2poly_clenshaw"><code>herm2poly</code></a></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(P\to H\)</span></td>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            poly2herm(p, method='iterative')" href="hermite_functional/#poly.hermite_functional.poly2herm"><code>poly2herm</code></a></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            poly2herm_naive(p)" href="hermite_functional/#poly.hermite_functional.poly2herm_naive"><code>poly2herm_naive</code></a></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            poly2herm_iterative(p)" href="hermite_functional/#poly.hermite_functional.poly2herm_iterative"><code>poly2herm_iterative</code></a></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><a class="autorefs autorefs-internal" title="            poly2herm_horner(p)" href="hermite_functional/#poly.hermite_functional.poly2herm_horner"><code>poly2herm_horner</code></a></td>
+</tr>
+<tr>
+<td><strong>Evaluation</strong></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td>Evaluation</td>
 <td><a class="autorefs autorefs-internal" title="            polyval(p, x, method='horner')" href="functional/#poly.functional.polyval"><code>polyval</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermval(h, x, method='clenshaw')" href="hermite_functional/#poly.hermite_functional.hermval"><code>hermval</code></a></td>
 </tr>
 <tr>
 <td></td>
-<td><a class="autorefs autorefs-internal" title="            polyval_naive(p, x)" href="functional/#poly.functional.polyval_naive"><code>polyval</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            polyval_naive(p, x)" href="functional/#poly.functional.polyval_naive"><code>polyval_naive</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermval_naive(h, x)" href="hermite_functional/#poly.hermite_functional.hermval_naive"><code>hermval_naive</code></a></td>
 </tr>
 <tr>
 <td></td>
-<td><a class="autorefs autorefs-internal" title="            polyval_iterative(p, x)" href="functional/#poly.functional.polyval_iterative"><code>polyval</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            polyval_iterative(p, x)" href="functional/#poly.functional.polyval_iterative"><code>polyval_iterative</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermval_iterative(h, x)" href="hermite_functional/#poly.hermite_functional.hermval_iterative"><code>hermval_iterative</code></a></td>
 </tr>
 <tr>
-<td>Evaluation of monomials</td>
+<td>Evaluation of basis</td>
 <td><a class="autorefs autorefs-internal" title="            polyvalgen(x)" href="functional/#poly.functional.polyvalgen"><code>polyvalgen</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermvalgen(x)" href="hermite_functional/#poly.hermite_functional.hermvalgen"><code>hermvalgen</code></a></td>
 </tr>
 <tr>
 <td>Evaluation at <span class="arithmatex">\(x=0\)</span></td>
 <td><a class="autorefs autorefs-internal" title="            polyvalzero(p)" href="functional/#poly.functional.polyvalzero"><code>polyvalzero</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermvalzero(h)" href="hermite_functional/#poly.hermite_functional.hermvalzero"><code>hermvalzero</code></a></td>
 </tr>
 <tr>
 <td>Composition</td>
 <td><a class="autorefs autorefs-internal" title="            polycom(p, q, method='iterative')" href="functional/#poly.functional.polycom"><code>polycom</code></a></td>
+<td></td>
 </tr>
 <tr>
 <td></td>
 <td><a class="autorefs autorefs-internal" title="            polycom_naive(p, q)" href="functional/#poly.functional.polycom_naive"><code>polycom_naive</code></a></td>
+<td></td>
 </tr>
 <tr>
 <td></td>
 <td><a class="autorefs autorefs-internal" title="            polycom_iterative(p, q)" href="functional/#poly.functional.polycom_iterative"><code>polycom_iterative</code></a></td>
+<td></td>
 </tr>
 <tr>
 <td></td>
 <td><a class="autorefs autorefs-internal" title="            polycom_horner(p, q)" href="functional/#poly.functional.polycom_horner"><code>polycom_horner</code></a></td>
+<td></td>
 </tr>
 <tr>
 <td>Powers of polynomials</td>
 <td><a class="autorefs autorefs-internal" title="            polycomgen(p)" href="functional/#poly.functional.polycomgen"><code>polycomgen</code></a></td>
+<td></td>
 </tr>
 <tr>
 <td>Shift</td>
 <td><a class="autorefs autorefs-internal" title="            polyshift(p, s)" href="functional/#poly.functional.polyshift"><code>polyshift</code></a></td>
+<td></td>
 </tr>
 <tr>
 <td><strong>Arithmetic</strong></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td>Positive</td>
 <td><a class="autorefs autorefs-internal" title="            polypos(p)" href="functional/#poly.functional.polypos"><code>polypos</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermpos(h)" href="hermite_functional/#poly.hermite_functional.hermpos"><code>hermpos</code></a></td>
 </tr>
 <tr>
 <td>Negation</td>
 <td><a class="autorefs autorefs-internal" title="            polyneg(p)" href="functional/#poly.functional.polyneg"><code>polyneg</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermneg(h)" href="hermite_functional/#poly.hermite_functional.hermneg"><code>hermneg</code></a></td>
 </tr>
 <tr>
 <td>Addition</td>
 <td><a class="autorefs autorefs-internal" title="            polyadd(*ps)" href="functional/#poly.functional.polyadd"><code>polyadd</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermadd(*hs)" href="hermite_functional/#poly.hermite_functional.hermadd"><code>hermadd</code></a></td>
 </tr>
 <tr>
 <td>Basis addition</td>
 <td><a class="autorefs autorefs-internal" title="            polyaddc(p, c, n=0)" href="functional/#poly.functional.polyaddc"><code>polyaddc</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermaddc(h, c, n=0)" href="hermite_functional/#poly.hermite_functional.hermaddc"><code>hermaddc</code></a></td>
 </tr>
 <tr>
 <td>Subtraction</td>
 <td><a class="autorefs autorefs-internal" title="            polysub(p, q)" href="functional/#poly.functional.polysub"><code>polysub</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermsub(g, h)" href="hermite_functional/#poly.hermite_functional.hermsub"><code>hermsub</code></a></td>
 </tr>
 <tr>
 <td>Scalar multiplication</td>
 <td><a class="autorefs autorefs-internal" title="            polyscalarmul(a, p)" href="functional/#poly.functional.polyscalarmul"><code>polyscalarmul</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermscalarmul(a, h)" href="hermite_functional/#poly.hermite_functional.hermscalarmul"><code>hermscalarmul</code></a></td>
 </tr>
 <tr>
 <td>Scalar true division</td>
 <td><a class="autorefs autorefs-internal" title="            polyscalartruediv(p, a)" href="functional/#poly.functional.polyscalartruediv"><code>polyscalartruediv</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermscalartruediv(h, a)" href="hermite_functional/#poly.hermite_functional.hermscalartruediv"><code>hermscalartruediv</code></a></td>
 </tr>
 <tr>
 <td>Scalar floor division</td>
 <td><a class="autorefs autorefs-internal" title="            polyscalarfloordiv(p, a)" href="functional/#poly.functional.polyscalarfloordiv"><code>polyscalarfloordiv</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermscalarfloordiv(h, a)" href="hermite_functional/#poly.hermite_functional.hermscalarfloordiv"><code>hermscalarfloordiv</code></a></td>
 </tr>
 <tr>
 <td>Scalar mod</td>
 <td><a class="autorefs autorefs-internal" title="            polyscalarmod(p, a)" href="functional/#poly.functional.polyscalarmod"><code>polyscalarmod</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermscalarmod(h, a)" href="hermite_functional/#poly.hermite_functional.hermscalarmod"><code>hermscalarmod</code></a></td>
 </tr>
 <tr>
 <td>Scalar divmod</td>
 <td><a class="autorefs autorefs-internal" title="            polyscalardivmod(p, a)" href="functional/#poly.functional.polyscalardivmod"><code>polyscalardivmod</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermscalardivmod(h, a)" href="hermite_functional/#poly.hermite_functional.hermscalardivmod"><code>hermscalardivmod</code></a></td>
 </tr>
 <tr>
 <td>Multiplication</td>
 <td><a class="autorefs autorefs-internal" title="            polymul(*ps, method='naive')" href="functional/#poly.functional.polymul"><code>polymul</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermmul(*hs, method='naive')" href="hermite_functional/#poly.hermite_functional.hermmul"><code>hermmul</code></a></td>
 </tr>
 <tr>
 <td></td>
 <td><a class="autorefs autorefs-internal" title="            polymul_naive(p, q)" href="functional/#poly.functional.polymul_naive"><code>polymul_naive</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermmul_naive(g, h)" href="hermite_functional/#poly.hermite_functional.hermmul_naive"><code>hermmul_naive</code></a></td>
 </tr>
 <tr>
 <td></td>
 <td><a class="autorefs autorefs-internal" title="            polymul_karatsuba(p, q)" href="functional/#poly.functional.polymul_karatsuba"><code>polymul_karatsuba</code></a></td>
+<td></td>
 </tr>
 <tr>
 <td>Multiplication by <span class="arithmatex">\(x\)</span></td>
 <td><a class="autorefs autorefs-internal" title="            polymulx(p, n=1)" href="functional/#poly.functional.polymulx"><code>polymulx</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermmulx(h)" href="hermite_functional/#poly.hermite_functional.hermmulx"><code>hermmulx</code></a></td>
 </tr>
 <tr>
 <td>Exponentiation</td>
 <td><a class="autorefs autorefs-internal" title="            polypow(p, n, method='binary')" href="functional/#poly.functional.polypow"><code>polypow</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermpow(h, n, method='binary')" href="hermite_functional/#poly.hermite_functional.hermpow"><code>hermpow</code></a></td>
 </tr>
 <tr>
 <td></td>
 <td><a class="autorefs autorefs-internal" title="            polypow_naive(p, n)" href="functional/#poly.functional.polypow_naive"><code>polypow_naive</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermpow_naive(h, n)" href="hermite_functional/#poly.hermite_functional.hermpow_naive"><code>hermpow_naive</code></a></td>
 </tr>
 <tr>
 <td></td>
 <td><a class="autorefs autorefs-internal" title="            polypow_binary(p, n)" href="functional/#poly.functional.polypow_binary"><code>polypow_binary</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermpow_binary(h, n)" href="hermite_functional/#poly.hermite_functional.hermpow_binary"><code>hermpow_binary</code></a></td>
 </tr>
 <tr>
 <td><strong>Calculus</strong></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td>Differentiation</td>
 <td><a class="autorefs autorefs-internal" title="            polyder(p, n=1)" href="functional/#poly.functional.polyder"><code>polyder</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermder(h, n=1)" href="hermite_functional/#poly.hermite_functional.hermder"><code>hermder</code></a></td>
 </tr>
 <tr>
 <td>Integration</td>
 <td><a class="autorefs autorefs-internal" title="            polyantider(p, n=1, c=0)" href="functional/#poly.functional.polyantider"><code>polyantider</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermantider(h, n=1)" href="hermite_functional/#poly.hermite_functional.hermantider"><code>hermantider</code></a></td>
 </tr>
 <tr>
 <td><strong>Conversion</strong></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td>Sympification</td>
 <td><a class="autorefs autorefs-internal" title="            polysympify(p, symbol=spx)" href="functional/#poly.functional.polysympify"><code>polysympify</code></a></td>
+<td><a class="autorefs autorefs-internal" title="            hermsympify(h, symbol=spx)" href="hermite_functional/#poly.hermite_functional.hermsympify"><code>hermsympify</code></a></td>
 </tr>
 <tr>
 <td>Unsympification</td>
 <td><a class="autorefs autorefs-internal" title="            polyunsympify(p)" href="functional/#poly.functional.polyunsympify"><code>polyunsympify</code></a></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -702,13 +839,14 @@
 <h2 id="roadmap">Roadmap</h2>
 <ul class="task-list">
 <li>Modules</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Hermite polynomials module</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Hermite polynomials module</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Object oriented module</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Parallelised module</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Multivariate module</li>
 <li>Documentation</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <a class="autorefs autorefs-internal" title="            polymul_karatsuba(p, q)" href="functional/#poly.functional.polymul_karatsuba"><code>polymul_karatsuba</code></a></li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Consisten use of <code>Horner</code> / <code>Clenshaw</code></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Consistent <code>See also</code> links; graph view?</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Consistent use of <code>Horner</code> / <code>Clenshaw</code></li>
 <li>Algorithms</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>polysqrt</code></li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>polyroots</code> only if there is a clean algorithm</li>
