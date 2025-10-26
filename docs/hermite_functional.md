@@ -31,7 +31,7 @@ Integers are used where possible, for multiplications and for divisions like in 
 ::: poly.hermite_functional
     options:
       members:
-        - hermgen
+        - herms
         - hermzero
         - hermone
         - hermx
@@ -48,7 +48,7 @@ Integers are used where possible, for multiplications and for divisions like in 
 ::: poly.hermite_functional
     options:
       members:
-        - hermmonogen
+        - hermmonos
         - hermrand
         - hermrandn
         - hermfromroots
@@ -109,9 +109,9 @@ Integers are used where possible, for multiplications and for divisions like in 
 ::: poly.hermite_functional
     options:
       members:
-        - hermvalgen
+        - hermvals
         - hermvalzero
-        - hermvalzerogen
+        - hermvalzeros
 
 ## Arithmetic
 

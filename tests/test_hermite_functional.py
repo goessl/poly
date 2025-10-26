@@ -50,7 +50,7 @@ def test_herm():
             prediction = herm(n, method)
             actual = np.polynomial.hermite.herm2poly(vecbasis(n))
             assert np.array_equal(prediction, actual)
-    assert tuple(islice(hermgen(), 10)) == tuple(herm(i) for i in range(10))
+    assert tuple(islice(herms(), 10)) == tuple(herm(i) for i in range(10))
 
 def test_hermmono():
     for method in {'recursive', 'iterative', 'explicit'}:
@@ -58,7 +58,7 @@ def test_hermmono():
             prediction = hermmono(n, method)
             actual = np.polynomial.hermite.poly2herm(polymono(n))
             assert np.allclose(np.array(prediction, dtype=float), actual)
-    assert tuple(islice(hermmonogen(), 10)) == tuple(hermmono(i) for i in range(10))
+    assert tuple(islice(hermmonos(), 10)) == tuple(hermmono(i) for i in range(10))
 
 
 #evaluation
@@ -74,7 +74,7 @@ def test_hermval():
         assert hermval(hermzero, x) == 0
 
 def test_hermvalzero():
-    assert tuple(islice(hermvalzerogen(), 20)) == tuple(hermval(vecbasis(i), 0) for i in range(20))
+    assert tuple(islice(hermvalzeros(), 20)) == tuple(hermval(vecbasis(i), 0) for i in range(20))
     for _ in range(100):
         h = np.random.randint(-100, +100, size=np.random.randint(0, 10)).tolist()
         prediction = hermvalzero(h)

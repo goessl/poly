@@ -92,7 +92,7 @@ def test_polyval():
     with pytest.raises(ValueError, match='Invalid method'):
         polyval((1, 2, 3), 4, method='I dont want to do this anymore')
 
-#polyvalgen gets tested with polyval_iterative
+#polyvals gets tested with polyval_iterative
 
 def test_polyvalzero():
     assert polyvalzero(polyzero) == 0
@@ -172,7 +172,7 @@ def test_polyscalarmod():
 
 def test_polydivmod():
     p, a = (1, 2, 3), 2
-    polyscalardivmod(p, a) == (polyscalartruediv(p, a), polyscalarmod(p, a))
+    assert polyscalardivmod(p, a) == (polyscalarfloordiv(p, a), polyscalarmod(p, a))
 
 def test_polymul():
     for method in {'naive', 'karatsuba'}:

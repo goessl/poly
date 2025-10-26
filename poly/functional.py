@@ -13,8 +13,8 @@ __all__ = (#creation
            #utility
            'polyeq', 'polytrim', 'polyround', 'polydeg',
            #evaluation
-           'polyval', 'polyval_naive', 'polyval_iterative', 'polyval_horner', 'polyvalgen', 'polyvalzero',
-           'polycom', 'polycom_naive', 'polycom_iterative', 'polycom_horner', 'polycomgen',
+           'polyval', 'polyval_naive', 'polyval_iterative', 'polyval_horner', 'polyvals', 'polyvalzero',
+           'polycom', 'polycom_naive', 'polycom_iterative', 'polycom_horner', 'polycoms',
            'polyshift',
            #arithmetic
            'polypos', 'polyneg',
@@ -174,7 +174,7 @@ def polytrim(p, tol=1e-9):
     r"""Remove all leading near zero (`abs(p_i)<=tol`) coefficients.
     
     $$
-        \sum_{k=0}^na_kx^k \ \text{where} \ n=\max\{\, j\mid |v_{j-1}|>\text{tol}\,\}\cup\{-1\}
+        \sum_{k=0}^na_kx^k \ \text{where} \ n=\max\{\, j\mid |a_{j-1}|>\text{tol}\,\}\cup\{-1\}
     $$
     
     See also
@@ -244,7 +244,7 @@ def polyval(p, x, method='horner'):
     [`polyval_iterative`][poly.functional.polyval_iterative],
     [`polyval_horner`][poly.functional.polyval_horner]
     - for $x=0$: [`polyvalzero`][poly.functional.polyvalzero]
-    - for consecutive monomials: [`polyvalgen`][poly.functional.polyvalgen]
+    - for consecutive monomials: [`polyvals`][poly.functional.polyvals]
     - for polynomial arguments: [`polycom`][poly.functional.polycom]
     
     References
@@ -307,14 +307,14 @@ def polyval_iterative(p, x):
     - other implementations:
     [`polyval_naive`][poly.functional.polyval_naive],
     [`polyval_horner`][poly.functional.polyval_horner]
-    - uses: [`polyvalgen`][poly.functional.polyvalgen]
+    - uses: [`polyvals`][poly.functional.polyvals]
     - for polynomial arguments: [`polycom_iterative`][poly.functional.polycom_iterative]
     
     References
     ----------
     - [Wikipedia - Horner's method - Efficiency](https://en.wikipedia.org/wiki/Horner%27s_method#Efficiency)
     """
-    return sum(map(mul, p, polyvalgen(x)), start=type(x)(0))
+    return sum(map(mul, p, polyvals(x)), start=type(x)(0))
 
 def polyval_horner(p, x):
     """Return the value of polynomial `p` evaluated at point `x`.
@@ -341,7 +341,7 @@ def polyval_horner(p, x):
     """
     return reduce(lambda a, pi: a*x+pi, reversed(p), type(x)(0))
 
-def polyvalgen(x):
+def polyvals(x):
     r"""Yield the powers of the value `x`.
     
     $$
@@ -353,7 +353,7 @@ def polyvalgen(x):
     See also
     --------
     - used in: [`polyval_iterative`][poly.functional.polyval_iterative]
-    - for polynomial arguments: [`polycomgen`][poly.functional.polycomgen]
+    - for polynomial arguments: [`polycoms`][poly.functional.polycoms]
     """
     yield (y := type(x)(1))
     while True:
@@ -445,10 +445,10 @@ def polycom_iterative(p, q):
     - other implementations:
     [`polycom_naive`][poly.functional.polycom_naive],
     [`polycom_horner`][poly.functional.polycom_horner]
-    - uses: [`polycomgen`][poly.functional.polycomgen]
+    - uses: [`polycoms`][poly.functional.polycoms]
     - based on: [`polyval_iterative`][poly.functional.polyval_iterative]
     """
-    return polyadd(*map(polyscalarmul, p, polycomgen(q)))
+    return polyadd(*map(polyscalarmul, p, polycoms(q)))
 
 def polycom_horner(p, q):
     r"""Return the polynomial composition of `p` & `q`.
@@ -471,7 +471,7 @@ def polycom_horner(p, q):
     """
     return reduce(lambda a, pi: polyaddc(polymul(a, q), pi), reversed(p), polyzero)
 
-def polycomgen(p):
+def polycoms(p):
     r"""Yield the powers of the polynomial `p`.
     
     $$
@@ -485,7 +485,7 @@ def polycomgen(p):
     See also
     --------
     - used in: [`polycom_iterative`][poly.functional.polycom_iterative]
-    - based on: [`polyvalgen`][poly.functional.polyvalgen]
+    - based on: [`polyvals`][poly.functional.polyvals]
     """
     yield (q := polyone)
     while True:
@@ -802,7 +802,7 @@ def polypow(p, n, method='binary'):
     --------
     - implementations: [`polypow_naive`][poly.functional.polypow_naive],
     [`polypow_binary`][poly.functional.polypow_binary]
-    - for sequence of powers: [`polycomgen`][poly.functional.polycomgen]
+    - for sequence of powers: [`polycoms`][poly.functional.polycoms]
     
     References
     ----------
@@ -833,9 +833,9 @@ def polypow_naive(p, n):
     - for any implementation: [`polypow`][poly.functional.polypow]
     - other implementations:
     [`polypow_binary`][poly.functional.polypow_binary]
-    - uses: [`polycomgen`][poly.functional.polycomgen]
+    - uses: [`polycoms`][poly.functional.polycoms]
     """
-    return next(islice(polycomgen(p), n, None))
+    return next(islice(polycoms(p), n, None))
 
 def polypow_binary(p, n):
     """Return the polynomial `p` raised to the nonnegative `n`-th power.

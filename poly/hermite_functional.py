@@ -14,9 +14,9 @@ from vector import *
 
 __all__ = (#creation
            'H0', 'H1', 'H2',
-           'herm', 'herm_recursive', 'herm_iterative', 'herm_explicit', 'hermgen',
+           'herm', 'herm_recursive', 'herm_iterative', 'herm_explicit', 'herms',
            'hermzero', 'hermone', 'hermx',
-           'hermmono', 'hermmono_recursive', 'hermmono_iterative', 'hermmono_explicit', 'hermmonogen',
+           'hermmono', 'hermmono_recursive', 'hermmono_iterative', 'hermmono_explicit', 'hermmonos',
            'hermrand', 'hermrandn', 'hermfromroots',
            #utility
            'hermeq', 'hermtrim', 'hermround', 'hermdeg',
@@ -25,7 +25,7 @@ __all__ = (#creation
            'poly2herm', 'poly2herm_naive', 'poly2herm_iterative', 'poly2herm_horner',
            #evaluation
            'hermval', 'hermval_naive', 'hermval_iterative', 'hermval_clenshaw',
-           'hermvalzerogen', 'hermvalzero',
+           'hermvals', 'hermvalzeros', 'hermvalzero',
            #arithmetic
            'hermpos', 'hermneg', 'hermadd', 'hermaddc', 'hermsub',
            'hermscalarmul', 'hermscalartruediv', 'hermscalarfloordiv',
@@ -149,13 +149,13 @@ def herm_iterative(n):
     - for any implementation: [`herm`][poly.hermite_functional.herm]
     - other implementations: [`herm_recursive`][poly.hermite_functional.herm_recursive],
     [`herm_explicit`][poly.hermite_functional.herm_explicit]
-    - uses: [`hermgen`][poly.hermite_functional.hermgen]
+    - uses: [`herms`][poly.hermite_functional.herms]
     
     References
     ----------
     - [Wikipedia - Hermite polynomials - Recurrence relation](https://en.wikipedia.org/wiki/Hermite_polynomials#Recurrence_relation)
     """
-    return next(islice(hermgen(), n, None))
+    return next(islice(herms(), n, None))
 
 def herm_explicit(n):
     r"""Return the `n`-th Hermite polynomial in monomial basis.
@@ -211,7 +211,7 @@ def herm_explicit(n):
         r[n-2*m] = -r[n-2*(m-1)] * (n-2*m+1)*(n-2*m+2) // (4*m)
     return tuple(r)
 
-def hermgen():
+def herms():
     r"""Yield the Hermite polynomials in standard monomial basis.
     
     $$
@@ -309,7 +309,7 @@ def hermmono(n, method='explicit'):
     - implementations: [`hermmono_recursive`][poly.hermite_functional.hermmono_recursive],
     [`hermmono_iterative`][poly.hermite_functional.hermmono_iterative],
     [`hermmono_explicit`][poly.hermite_functional.hermmono_explicit]
-    - for all $n$: [`hermmonogen`][poly.hermite_functional.hermmonogen]
+    - for all $n$: [`hermmonos`][poly.hermite_functional.hermmonos]
     """
     match method:
         case 'recursive':
@@ -362,9 +362,9 @@ def hermmono_iterative(n):
     - for any implementation: [`hermmono`][poly.hermite_functional.hermmono]
     - other implementations: [`hermmono_recursive`][poly.hermite_functional.hermmono_recursive],
     [`hermmono_explicit`][poly.hermite_functional.hermmono_explicit]
-    - uses: [`hermmonogen`][poly.hermite_functional.hermmonogen]
+    - uses: [`hermmonos`][poly.hermite_functional.hermmonos]
     """
-    return next(islice(hermmonogen(), n, None))
+    return next(islice(hermmonos(), n, None))
 
 def hermmono_explicit(n):
     r"""Return `x^n` as Hermite polynomial series.
@@ -409,7 +409,7 @@ def hermmono_explicit(n):
     - for any implementation: [`hermmono`][poly.hermite_functional.hermmono]
     - other implementations: [`hermmono_recursive`][poly.hermite_functional.hermmono_recursive],
     [`hermmono_explicit`][poly.hermite_functional.hermmono_explicit]
-    - uses: [`hermmonogen`][poly.hermite_functional.hermmonogen]
+    - uses: [`hermmonos`][poly.hermite_functional.hermmonos]
     
     References
     ----------
@@ -421,7 +421,7 @@ def hermmono_explicit(n):
         r[n-2*m] = r[n-2*(m-1)] * ((n-2*m+1)*(n-2*m+2)) / m
     return tuple(r)
 
-def hermmonogen():
+def hermmonos():
     r"""Yield standard monomials `x^n` as Hermite polynomial series.
     
     $$
@@ -631,9 +631,9 @@ def herm2poly_iterative(h):
     - for any implementation: [`herm2poly`][poly.hermite_functional.herm2poly]
     - other implementations: [`herm2poly_naive`][poly.hermite_functional.herm2poly_naive],
     [`herm2poly_clenshaw`][poly.hermite_functional.herm2poly_clenshaw]
-    - uses: [`hermgen`][poly.hermite_functional.hermgen]
+    - uses: [`herms`][poly.hermite_functional.herms]
     """
-    return polyadd(*starmap(polyscalarmul, zip(h, hermgen())))
+    return polyadd(*starmap(polyscalarmul, zip(h, herms())))
 
 def herm2poly_clenshaw(h):
     """Return a Hermite polynomial series in standard monomial basis.
@@ -717,7 +717,7 @@ def poly2herm_iterative(p):
         p^{(H)}
     $$
     
-    Uses iterative monomial creation of [`hermmonogen`][poly.hermite_functional.hermmonogen].
+    Uses iterative monomial creation of [`hermmonos`][poly.hermite_functional.hermmonos].
     
     See also
     --------
@@ -725,7 +725,7 @@ def poly2herm_iterative(p):
     - other implementations: [`poly2herm_iterative`][poly.hermite_functional.poly2herm_iterative],
     [`poly2herm_horner`][poly.hermite_functional.poly2herm_horner]
     """
-    return hermadd(*starmap(hermscalarmul, zip(p, hermmonogen())))
+    return hermadd(*starmap(hermscalarmul, zip(p, hermmonos())))
 
 def poly2herm_horner(p):
     """Return a standard monomial basis polynomials as a Hermite polynomial series.
@@ -821,10 +821,10 @@ def hermval_iterative(h, x):
     - for any implementation: [`hermval`][poly.hermite_functional.hermval]
     - other implementations: [`hermval_naive`][poly.hermite_functional.hermval_naive],
     [`hermval_clenshaw`][poly.hermite_functional.hermval_clenshaw]
-    - uses: [`hermvalgen`][poly.hermite_functional.hermvalgen]
+    - uses: [`hermvals`][poly.hermite_functional.hermvals]
     - in standard monomial basis: [`polyval_iterative`][poly.functional.polyval_iterative]
     """
-    return sum(map(mul, h, hermvalgen(x)), start=type(x)(0))
+    return sum(map(mul, h, hermvals(x)), start=type(x)(0))
 
 def hermval_clenshaw(h, x):
     """Return the value of Hermite polynomial series `h` evaluated at point `x`.
@@ -854,8 +854,8 @@ def hermval_clenshaw(h, x):
         a, b = hn + 2*x*a - 2*(n+1)*b, a
     return h[0] + 2*x*a - 2*b
 
-def hermvalgen(x):
-    r"""Yield the value of Hermite polynomials evaluated at point `x`.
+def hermvals(x):
+    r"""Yield the values of Hermite polynomials evaluated at point `x`.
     
     $$
         (H_n(x))_{n\in\mathbb{N}_0} = (H_0(x), H_1(x), H_2(x), \dots)
@@ -877,7 +877,7 @@ def hermvalgen(x):
         Hkm1, Hk = Hk, 2*(Hk*x - k*Hkm1)
         yield Hk
 
-def hermvalzerogen():
+def hermvalzeros():
     r"""Yield the values of Hermite polynomials evaluated at point 0.
     
     $$
@@ -919,7 +919,7 @@ def hermvalzero(h):
     --------
     - for any point: [`hermval`][poly.hermite_functional.hermval]
     """
-    return sum(map(prod, islice(zip(h, hermvalzerogen()), 0, None, 2)))
+    return sum(starmap(mul, islice(zip(h, hermvalzeros()), 0, None, 2)))
 
 
 #arithmetic
@@ -1138,7 +1138,7 @@ def hermmul_naive(g, h):
     
     References
     ----------
-    - [1] Zhi-yuan Huang & Jia-an Yan: Introduction to Infinite Dimensional Stochastic Analysis. DOI: 10.1007/978-94-011-4108-6
+    - [1] Zhi-yuan Huang & Jia-an Yan: Introduction to Infinite Dimensional Stochastic Analysis. [10.1007/978-94-011-4108-6](https://doi.org/10.1007/978-94-011-4108-6)
     - [Wikipedia - Hermite polynomials - Definition](https://en.wikipedia.org/wiki/Hermite_polynomials#Definition)
     """
     g, h = tuple(g), tuple(h)

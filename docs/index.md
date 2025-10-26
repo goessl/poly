@@ -52,13 +52,13 @@ This package heavily depends on and is the natural extension of [goessl/vector](
 | Evaluation              | [`polyval`][poly.functional.polyval]                       | [`hermval`][poly.hermite_functional.hermval]                         |
 |                         | [`polyval_naive`][poly.functional.polyval_naive]           | [`hermval_naive`][poly.hermite_functional.hermval_naive]             |
 |                         | [`polyval_iterative`][poly.functional.polyval_iterative]   | [`hermval_iterative`][poly.hermite_functional.hermval_iterative]     |
-| Evaluation of basis     | [`polyvalgen`][poly.functional.polyvalgen]                 | [`hermvalgen`][poly.hermite_functional.hermvalgen]                   |
+| Evaluation of basis     | [`polyvals`][poly.functional.polyvals]                     | [`hermvals`][poly.hermite_functional.hermvals]                   |
 | Evaluation at $x=0$     | [`polyvalzero`][poly.functional.polyvalzero]               | [`hermvalzero`][poly.hermite_functional.hermvalzero]                 |
 | Composition             | [`polycom`][poly.functional.polycom]                       |                                                                      |
 |                         | [`polycom_naive`][poly.functional.polycom_naive]           |                                                                      |
 |                         | [`polycom_iterative`][poly.functional.polycom_iterative]   |                                                                      |
 |                         | [`polycom_horner`][poly.functional.polycom_horner]         |                                                                      |
-| Powers of polynomials   | [`polycomgen`][poly.functional.polycomgen]                 |                                                                      |
+| Powers of polynomials   | [`polycoms`][poly.functional.polycoms]                     |                                                                      |
 | Shift                   | [`polyshift`][poly.functional.polyshift]                   |                                                                      |
 | **Arithmetic**          |                                                            |                                                                      |
 | Positive                | [`polypos`][poly.functional.polypos]                       | [`hermpos`][poly.hermite_functional.hermpos]                         |

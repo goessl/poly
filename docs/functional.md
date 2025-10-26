@@ -68,7 +68,7 @@ or try to infer the type from an argument (e.g.
 ::: poly.functional
     options:
       members:
-        - polyvalgen
+        - polyvals
         - polyvalzero
         - polycom
 
@@ -83,7 +83,7 @@ or try to infer the type from an argument (e.g.
 ::: poly.functional
     options:
       members:
-        - polycomgen
+        - polycoms
         - polyshift
 
 ## Arithmetic
@@ -99,7 +99,6 @@ or try to infer the type from an argument (e.g.
         - polyscalarmul
         - polyscalartruediv
         - polyscalarfloordiv
-        - polyfloordiv
         - polyscalarmod
         - polyscalardivmod
         - polymul
