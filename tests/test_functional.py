@@ -2,6 +2,7 @@ from poly import *
 import numpy as np
 from random import gauss, randint
 from functools import reduce
+from itertools import islice
 from fractions import Fraction
 from sympy import Poly as spPoly
 from sympy.abc import x as spx
@@ -21,6 +22,10 @@ def test_polyx():
 
 def test_polymono():
     assert polymono(3, 5) == (0, 0, 0, 5)
+
+def test_polymonos():
+    for n, xn in enumerate(islice(polymonos(), 10)):
+        assert polymono(n) == xn
 
 def test_polyrand():
     p = polyrand(3)

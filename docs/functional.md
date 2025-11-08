@@ -36,6 +36,7 @@ or try to infer the type from an argument (e.g.
         - polyone
         - polyx
         - polymono
+        - polymonos
         - polyrand
         - polyrandn
         - polyfromroots

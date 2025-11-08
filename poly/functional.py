@@ -8,7 +8,7 @@ from sympy.abc import x as spx
 
 
 __all__ = (#creation
-           'polyzero', 'polyone', 'polyx', 'polymono',
+           'polyzero', 'polyone', 'polyx', 'polymono', 'polymonos',
            'polyrand', 'polyrandn', 'polyfromroots',
            #utility
            'polyeq', 'polytrim', 'polyround', 'polydeg',
@@ -110,6 +110,19 @@ def polymono(n, c=1):
     - wraps: [`vector.vecbasis`](https://goessl.github.io/vector/functional/#vector.functional.vecbasis)
     """
     return vecbasis(n, c) if n>=0 else polyzero
+
+def polymonos(c=1):
+    r"""Yield all monomials.
+    
+    $$
+        \left(x^n\right)_\mathbb{n\in\mathbb{N_0}} = \left(1, x, x^2, \dots \right)
+    $$
+    
+    See also
+    --------
+    - for single monomial: [`polymono`][poly.functional.polymono]
+    """
+    yield from vecbases()
 
 def polyrand(n):
     r"""Return a random polynomial of degree `n`.
