@@ -20,70 +20,71 @@ pip install git+https://github.com/goessl/poly.git
 
 This package heavily depends on and is the natural extension of [goessl/vector](https://goessl.github.io/vector).
 
-| Operation               | [poly](functional.md)                                      | [hermite](hermite_functional.md)                                     |
-| ----------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------- |
-| **Creation**            |                                                            |                                                                      |
-| $0$                     | [`polyzero`][poly.functional.polyzero]                     | [`hermzero`][poly.hermite_functional.hermzero]                       |
-| $1$                     | [`polyone`][poly.functional.polyone]                       | [`hermone`][poly.hermite_functional.hermone]                         |
-| $x$                     | [`polyx`][poly.functional.polyx]                           | [`hermx`][poly.hermite_functional.hermx]                             |
-| $x^n$                   | [`polymono`][poly.functional.polymono]                     | [`hermmono`][poly.hermite_functional.hermmono]                       |
-| $H_0$                   |                                                            | [`H0`][poly.hermite_functional.H0]                                   |
-| $H_1$                   |                                                            | [`H1`][poly.hermite_functional.H1]                                   |
-| $H_2$                   |                                                            | [`H2`][poly.hermite_functional.H2]                                   |
-| $H_n$                   |                                                            | [`herm`][poly.hermite_functional.herm]                               |
-| Uniform random          | [`polyrand`][poly.functional.polyrand]                     | [`hermrand`][poly.hermite_functional.hermrandn]                      |
-| Normal random           | [`polyrandn`][poly.functional.polyrandn]                   | [`hermrandn`][poly.hermite_functional.hermrandn]                     |
-| From roots              | [`polyfromroots`][poly.functional.polyfromroots]           | [`hermfromroots`][poly.hermite_functional.hermfromroots]             |
-| **Utility**             |                                                            |                                                                      |
-| Comparison              | [`polyeq`][poly.functional.polyeq]                         | [`hermeq`][poly.hermite_functional.hermeq]                           |
-| Trimming                | [`polytrim`][poly.functional.polytrim]                     | [`hermtrim`][poly.hermite_functional.hermtrim]                       |
-| Rounding                | [`polyround`][poly.functional.polyround]                   | [`hermround`][poly.hermite_functional.hermround]                     |
-| Degree                  | [`polydeg`][poly.functional.polydeg]                       | [`hermdeg`][poly.hermite_functional.hermdeg]                         |
-| **Conversion**          |                                                            |                                                                      |
-| $H\to P$                |                                                            | [`herm2poly`][poly.hermite_functional.herm2poly]                     |
-|                         |                                                            | [`herm2poly`][poly.hermite_functional.herm2poly_naive]               |
-|                         |                                                            | [`herm2poly`][poly.hermite_functional.herm2poly_iterative]           |
-|                         |                                                            | [`herm2poly`][poly.hermite_functional.herm2poly_clenshaw]            |
-| $P\to H$                |                                                            | [`poly2herm`][poly.hermite_functional.poly2herm]                     |
-|                         |                                                            | [`poly2herm_naive`][poly.hermite_functional.poly2herm_naive]         |
-|                         |                                                            | [`poly2herm_iterative`][poly.hermite_functional.poly2herm_iterative] |
-|                         |                                                            | [`poly2herm_horner`][poly.hermite_functional.poly2herm_horner]       |
-| **Evaluation**          |                                                            |                                                                      |
-| Evaluation              | [`polyval`][poly.functional.polyval]                       | [`hermval`][poly.hermite_functional.hermval]                         |
-|                         | [`polyval_naive`][poly.functional.polyval_naive]           | [`hermval_naive`][poly.hermite_functional.hermval_naive]             |
-|                         | [`polyval_iterative`][poly.functional.polyval_iterative]   | [`hermval_iterative`][poly.hermite_functional.hermval_iterative]     |
-| Evaluation of basis     | [`polyvals`][poly.functional.polyvals]                     | [`hermvals`][poly.hermite_functional.hermvals]                   |
-| Evaluation at $x=0$     | [`polyvalzero`][poly.functional.polyvalzero]               | [`hermvalzero`][poly.hermite_functional.hermvalzero]                 |
-| Composition             | [`polycom`][poly.functional.polycom]                       |                                                                      |
-|                         | [`polycom_naive`][poly.functional.polycom_naive]           |                                                                      |
-|                         | [`polycom_iterative`][poly.functional.polycom_iterative]   |                                                                      |
-|                         | [`polycom_horner`][poly.functional.polycom_horner]         |                                                                      |
-| Powers of polynomials   | [`polycoms`][poly.functional.polycoms]                     |                                                                      |
-| Shift                   | [`polyshift`][poly.functional.polyshift]                   |                                                                      |
-| **Arithmetic**          |                                                            |                                                                      |
-| Positive                | [`polypos`][poly.functional.polypos]                       | [`hermpos`][poly.hermite_functional.hermpos]                         |
-| Negation                | [`polyneg`][poly.functional.polyneg]                       | [`hermneg`][poly.hermite_functional.hermneg]                         |
-| Addition                | [`polyadd`][poly.functional.polyadd]                       | [`hermadd`][poly.hermite_functional.hermadd]                         |
-| Basis addition          | [`polyaddc`][poly.functional.polyaddc]                     | [`hermaddc`][poly.hermite_functional.hermaddc]                       |
-| Subtraction             | [`polysub`][poly.functional.polysub]                       | [`hermsub`][poly.hermite_functional.hermsub]                         |
-| Scalar multiplication   | [`polyscalarmul`][poly.functional.polyscalarmul]           | [`hermscalarmul`][poly.hermite_functional.hermscalarmul]             |
-| Scalar true division    | [`polyscalartruediv`][poly.functional.polyscalartruediv]   | [`hermscalartruediv`][poly.hermite_functional.hermscalartruediv]     |
-| Scalar floor division   | [`polyscalarfloordiv`][poly.functional.polyscalarfloordiv] | [`hermscalarfloordiv`][poly.hermite_functional.hermscalarfloordiv]   |
-| Scalar mod              | [`polyscalarmod`][poly.functional.polyscalarmod]           | [`hermscalarmod`][poly.hermite_functional.hermscalarmod]             |
-| Scalar divmod           | [`polyscalardivmod`][poly.functional.polyscalardivmod]     | [`hermscalardivmod`][poly.hermite_functional.hermscalardivmod]       |
-| Multiplication          | [`polymul`][poly.functional.polymul]                       | [`hermmul`][poly.hermite_functional.hermmul]                         |
-|                         | [`polymul_naive`][poly.functional.polymul_naive]           | [`hermmul_naive`][poly.hermite_functional.hermmul_naive]             |
-|                         | [`polymul_karatsuba`][poly.functional.polymul_karatsuba]   |                                                                      |
-| Multiplication by $x$   | [`polymulx`][poly.functional.polymulx]                     | [`hermmulx`][poly.hermite_functional.hermmulx]                       |
-| Exponentiation          | [`polypow`][poly.functional.polypow]                       | [`hermpow`][poly.hermite_functional.hermpow]                         |
-|                         | [`polypow_naive`][poly.functional.polypow_naive]           | [`hermpow_naive`][poly.hermite_functional.hermpow_naive]             |
-|                         | [`polypow_binary`][poly.functional.polypow_binary]         | [`hermpow_binary`][poly.hermite_functional.hermpow_binary]           |
-| **Calculus**            |                                                            |                                                                      |
-| Differentiation         | [`polyder`][poly.functional.polyder]                       | [`hermder`][poly.hermite_functional.hermder]                         |
-| Integration             | [`polyantider`][poly.functional.polyantider]               | [`hermantider`][poly.hermite_functional.hermantider]                 |
-| **Conversion**          |                                                            |                                                                      |
-| Sympification           | [`polysympify`][poly.functional.polysympify]               | [`hermsympify`][poly.hermite_functional.hermsympify]                 |
-| Unsympification         | [`polyunsympify`][poly.functional.polyunsympify]           |                                                                      |
+| Operation                  | [poly](standard.md)                                                 | [hermite](hermite.md)                                     |
+| -------------------------- | ------------------------------------------------------------------- | --------------------------------------------------------- |
+| **Creation**               |                                                                     |                                                           |
+| $0$                        | [`polyzero`][poly.standard.creation.polyzero]                       | [`hermzero`][poly.hermite.hermzero]                       |
+| $1$                        | [`polyone`][poly.standard.creation.polyone]                         | [`hermone`][poly.hermite.hermone]                         |
+| $x$                        | [`polyx`][poly.standard.creation.polyx]                             | [`hermx`][poly.hermite.hermx]                             |
+| $x^n$                      | [`polymono`][poly.standard.creation.polymono]                       | [`hermmono`][poly.hermite.hermmono]                       |
+| $(x^n)_{n\in\mathbb{N}_0}$ | [`polymonos`][poly.standard.creation.polymono]                      | [`hermmono`][poly.hermite.hermmono]                       |
+| $H_0$                      |                                                                     | [`H0`][poly.hermite.H0]                                   |
+| $H_1$                      |                                                                     | [`H1`][poly.hermite.H1]                                   |
+| $H_2$                      |                                                                     | [`H2`][poly.hermite.H2]                                   |
+| $H_n$                      |                                                                     | [`herm`][poly.hermite.herm]                               |
+| Uniform random             | [`polyrand`][poly.standard.creation.polyrand]                       | [`hermrand`][poly.hermite.hermrandn]                      |
+| Normal random              | [`polyrandn`][poly.standard.creation.polyrandn]                     | [`hermrandn`][poly.hermite.hermrandn]                     |
+| From roots                 | [`polyfromroots`][poly.standard.creation.polyfromroots]             | [`hermfromroots`][poly.hermite.hermfromroots]             |
+| **Utility**                |                                                                     |                                                           |
+| Degree                     | [`polydeg`][poly.standard.utility.polydeg]                          | [`hermdeg`][poly.hermite.hermdeg]                         |
+| Comparison                 | [`polyeq`][poly.standard.utility.polyeq]                            | [`hermeq`][poly.hermite.hermeq]                           |
+| Trimming                   | [`polytrim`][poly.standard.utility.polytrim]                        | [`hermtrim`][poly.hermite.hermtrim]                       |
+| Rounding                   | [`polyround`][poly.standard.utility.polyround]                      | [`hermround`][poly.hermite.hermround]                     |
+| **Conversion**             |                                                                     |                                                           |
+| $H\to P$                   |                                                                     | [`herm2poly`][poly.hermite.herm2poly]                     |
+|                            |                                                                     | [`herm2poly`][poly.hermite.herm2poly_naive]               |
+|                            |                                                                     | [`herm2poly`][poly.hermite.herm2poly_iterative]           |
+|                            |                                                                     | [`herm2poly`][poly.hermite.herm2poly_clenshaw]            |
+| $P\to H$                   |                                                                     | [`poly2herm`][poly.hermite.poly2herm]                     |
+|                            |                                                                     | [`poly2herm_naive`][poly.hermite.poly2herm_naive]         |
+|                            |                                                                     | [`poly2herm_iterative`][poly.hermite.poly2herm_iterative] |
+|                            |                                                                     | [`poly2herm_horner`][poly.hermite.poly2herm_horner]       |
+| **Evaluation**             |                                                                     |                                                           |
+| Evaluation                 | [`polyval`][poly.standard.evaluation.polyval]                       | [`hermval`][poly.hermite.hermval]                         |
+|                            | [`polyval_naive`][poly.standard.evaluation.polyval_naive]           | [`hermval_naive`][poly.hermite.hermval_naive]             |
+|                            | [`polyval_iterative`][poly.standard.evaluation.polyval_iterative]   | [`hermval_iterative`][poly.hermite.hermval_iterative]     |
+| Evaluation of basis        | [`polyvals`][poly.standard.evaluation.polyvals]                     | [`hermvals`][poly.hermite.hermvals]                       |
+| Evaluation at $x=0$        | [`polyvalzero`][poly.standard.evaluation.polyvalzero]               | [`hermvalzero`][poly.hermite.hermvalzero]                 |
+| Composition                | [`polycom`][poly.standard.evaluation.polycom]                       |                                                           |
+|                            | [`polycom_naive`][poly.standard.evaluation.polycom_naive]           |                                                           |
+|                            | [`polycom_iterative`][poly.standard.evaluation.polycom_iterative]   |                                                           |
+|                            | [`polycom_horner`][poly.standard.evaluation.polycom_horner]         |                                                           |
+| Shift                      | [`polyshift`][poly.standard.evaluation.polyshift]                   |                                                           |
+| **Arithmetic**             |                                                                     |                                                           |
+| Positive                   | [`polypos`][poly.standard.arithmetic.polypos]                       | [`hermpos`][poly.hermite.hermpos]                         |
+| Negation                   | [`polyneg`][poly.standard.arithmetic.polyneg]                       | [`hermneg`][poly.hermite.hermneg]                         |
+| Addition                   | [`polyadd`][poly.standard.arithmetic.polyadd]                       | [`hermadd`][poly.hermite.hermadd]                         |
+| Basis addition             | [`polyaddc`][poly.standard.arithmetic.polyaddc]                     | [`hermaddc`][poly.hermite.hermaddc]                       |
+| Subtraction                | [`polysub`][poly.standard.arithmetic.polysub]                       | [`hermsub`][poly.hermite.hermsub]                         |
+| Scalar multiplication      | [`polyscalarmul`][poly.standard.arithmetic.polyscalarmul]           | [`hermscalarmul`][poly.hermite.hermscalarmul]             |
+| Scalar true division       | [`polyscalartruediv`][poly.standard.arithmetic.polyscalartruediv]   | [`hermscalartruediv`][poly.hermite.hermscalartruediv]     |
+| Scalar floor division      | [`polyscalarfloordiv`][poly.standard.arithmetic.polyscalarfloordiv] | [`hermscalarfloordiv`][poly.hermite.hermscalarfloordiv]   |
+| Scalar mod                 | [`polyscalarmod`][poly.standard.arithmetic.polyscalarmod]           | [`hermscalarmod`][poly.hermite.hermscalarmod]             |
+| Scalar divmod              | [`polyscalardivmod`][poly.standard.arithmetic.polyscalardivmod]     | [`hermscalardivmod`][poly.hermite.hermscalardivmod]       |
+| Multiplication             | [`polymul`][poly.standard.arithmetic.polymul]                       | [`hermmul`][poly.hermite.hermmul]                         |
+|                            | [`polymul_naive`][poly.standard.arithmetic.polymul_naive]           | [`hermmul_naive`][poly.hermite.hermmul_naive]             |
+|                            | [`polymul_karatsuba`][poly.standard.arithmetic.polymul_karatsuba]   |                                                           |
+| Multiplication by $x$      | [`polymulx`][poly.standard.arithmetic.polymulx]                     | [`hermmulx`][poly.hermite.hermmulx]                       |
+| Exponentiation             | [`polypow`][poly.standard.arithmetic.polypow]                       | [`hermpow`][poly.hermite.hermpow]                         |
+|                            | [`polypow_naive`][poly.standard.arithmetic.polypow_naive]           | [`hermpow_naive`][poly.hermite.hermpow_naive]             |
+|                            | [`polypow_binary`][poly.standard.arithmetic.polypow_binary]         | [`hermpow_binary`][poly.hermite.hermpow_binary]           |
+| Powers of polynomials      | [`polypows`][poly.standard.arithmetic.polypows]                     | [`hermpows`][poly.hermite.hermpows]                       |
+| **Calculus**               |                                                                     |                                                           |
+| Differentiation            | [`polyder`][poly.standard.calculus.polyder]                         | [`hermder`][poly.hermite.hermder]                         |
+| Integration                | [`polyantider`][poly.standard.calculus.polyantider]                 | [`hermantider`][poly.hermite.hermantider]                 |
+| **Conversion**             |                                                                     |                                                         |
+| Sympification              | [`polysympify`][poly.standard.conversion.polysympify]               | [`hermsympify`][poly.hermite.hermsympify]                 |
+| Unsympification            | [`polyunsympify`][poly.standard.conversion.polyunsympify]           |                                                           |
 
 ## Design
 
@@ -103,7 +104,7 @@ This ways the coefficient indices correspond to the monomial exponent (or the ba
   - [ ] Parallelised module
   - [ ] Multivariate module
 - Documentation
-  - [ ] [`polymul_karatsuba`][poly.functional.polymul_karatsuba]
+  - [ ] [`polymul_karatsuba`][poly.standard.polymul_karatsuba]
   - [ ] Consistent `See also` links; graph view?
   - [ ] Consistent use of `Horner` / `Clenshaw`
 - Algorithms

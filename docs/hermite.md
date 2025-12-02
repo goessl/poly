@@ -6,13 +6,13 @@ $$
 
 Polynomial results are returned in Hermite polynomial basis $H$, if not stated otherwise.
 
-Integers are used where possible, for multiplications and for divisions like in [`hermantider`][poly.hermite_functional.hermantider]. `Fraction`s are used where this was not possible, for example when a rational value has to be defined in [`hermx`][poly.hermite_functional.hermx].
+Integers are used where possible, for multiplications and for divisions like in [`hermantider`][poly.hermite.hermantider]. `Fraction`s are used where this was not possible, for example when a rational value has to be defined in [`hermx`][poly.hermite.hermx].
 
 ---
 
 ## Creation
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       members:
         - H0
@@ -20,42 +20,42 @@ Integers are used where possible, for multiplications and for divisions like in 
         - H2
         - herm
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       heading_level: 4
       members:
         - herm_recursive
         - herm_iterative
         - herm_explicit
+        - herms
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       members:
-        - herms
         - hermzero
         - hermone
         - hermx
         - hermmono
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       heading_level: 4
       members:
         - hermmono_recursive
         - hermmono_iterative
         - hermmono_explicit
+        - hermmonos
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       members:
-        - hermmonos
         - hermrand
         - hermrandn
         - hermfromroots
 
 ## Utility
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       members:
         - hermeq
@@ -63,14 +63,52 @@ Integers are used where possible, for multiplications and for divisions like in 
         - hermround
         - hermdeg
 
+## Hilbert space
+
+::: poly.hermite
+    options:
+      members:
+        - hermweight
+
+::: poly.hermite
+    options:
+      heading_level: 4
+      members:
+        - hermweights
+        - hermweighti
+        - hermweightis
+
+::: poly.hermite
+    options:
+      members:
+        - hermabs
+
+::: poly.hermite
+    options:
+      heading_level: 4
+      members:
+        - hermabsq
+        - hermabsqi
+
+::: poly.hermite
+    options:
+      members:
+        - hermdot
+
+::: poly.hermite
+    options:
+      heading_level: 4
+      members:
+        - hermdoti
+
 ## Conversion
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       members:
         - herm2poly
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       heading_level: 4
       members:
@@ -78,12 +116,12 @@ Integers are used where possible, for multiplications and for divisions like in 
         - herm2poly_iterative
         - herm2poly_clenshaw
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       members:
         - poly2herm
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       heading_level: 4
       members:
@@ -93,12 +131,12 @@ Integers are used where possible, for multiplications and for divisions like in 
 
 ## Evaluation
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       members:
         - hermval
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       heading_level: 4
       members:
@@ -106,7 +144,7 @@ Integers are used where possible, for multiplications and for divisions like in 
         - hermval_iterative
         - hermval_clenshaw
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       members:
         - hermvals
@@ -115,7 +153,7 @@ Integers are used where possible, for multiplications and for divisions like in 
 
 ## Arithmetic
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       members:
         - hermpos
@@ -130,33 +168,30 @@ Integers are used where possible, for multiplications and for divisions like in 
         - hermscalardivmod
         - hermmul
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       heading_level: 4
       members:
         - hermmul_naive
+        - hermmulx
+        - hermmuln
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       members:
-        - hermmulx
         - hermpow
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       heading_level: 4
       members:
         - hermpow_naive
         - hermpow_binary
-    
-::: poly.hermite_functional
-    options:
-      members:
         - hermmulpow
 
 ## Calculus
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       members:
         - hermder
@@ -164,7 +199,7 @@ Integers are used where possible, for multiplications and for divisions like in 
 
 ## Sympy
 
-::: poly.hermite_functional
+::: poly.hermite
     options:
       members:
         - hermsympify
