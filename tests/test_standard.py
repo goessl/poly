@@ -1,10 +1,11 @@
 from poly import *
 import numpy as np
-from random import gauss, randint
+from random import randint, random
 from functools import reduce
-from itertools import islice
+from itertools import count, islice
 from fractions import Fraction
-from sympy import Poly as spPoly
+from vector import vecrand
+import sympy as sp
 from sympy.abc import x as spx
 import pytest
 
@@ -22,28 +23,42 @@ def test_polyx():
 
 def test_polymono():
     assert polymono(3, 5) == (0, 0, 0, 5)
+    assert polymono(-1, 25) == polyzero
 
 def test_polymonos():
     for n, xn in enumerate(islice(polymonos(), 10)):
         assert polymono(n) == xn
 
 def test_polyrand():
-    p = polyrand(3)
-    assert isinstance(p, tuple) and polydeg(p)==3
+    for n in range(10):
+        p = polyrand(n)
+        assert isinstance(p, tuple) and polydeg(p)==n
+        assert all(isinstance(ai, float) and 0<=ai<1 for ai in p)
 
 def test_polyrandn():
-    p = polyrandn(3)
-    assert isinstance(p, tuple) and polydeg(p)==3
+    for _ in range(10):
+        n = randint(0, 10)
+        p = polyrandn(n)
+        assert isinstance(p, tuple) and polydeg(p)==n
+        assert all(isinstance(ai, float) for ai in p)
+    assert polyrandn(-1, normed=False) == polyzero
 
 def test_polyfromroots():
     for _ in range(100):
-        r = tuple(randint(-100, +100) for _ in range(randint(1, 10)))
-        p = polyfromroots(*r)
-        assert all(polyval(p, ri)==0 for ri in r)
+        n = randint(0, 10)
+        r = vecrand(n)
+        assert np.allclose(polyfromroots(*r),
+                           np.polynomial.polynomial.polyfromroots(r))
     assert polyfromroots() == polyone
 
 
 #utility
+def test_polydeg():
+    assert polydeg(polyzero) == -1
+    assert polydeg(polyone) == 0
+    assert polydeg(polyx) == 1
+    assert polydeg(polymono(3)) == 3
+
 def test_polyeq():
     assert polyeq((), ())
     assert polyeq((0,), ())
@@ -62,18 +77,12 @@ def test_polyround():
     assert polyround((1.1, 2.2)) == (1, 2)
     assert polyround((1.12, 2.23), ndigits=1) == (1.1, 2.2)
 
-def test_polydeg():
-    assert polydeg(polyzero) == -1
-    assert polydeg(polyone) == 0
-    assert polydeg(polyx) == 1
-    assert polydeg(polymono(3)) == 3
-
 
 #evaluation
 def test_polyval():
     #compare with numpy
     for _ in range(1000):
-        p, x = polyrand(randint(1, 10)), gauss()
+        p, x = polyrand(randint(1, 10)), random()
         actual = np.polynomial.polynomial.polyval(x, p)
         for method in ('naive', 'iterative', 'horner'):
             assert np.isclose(polyval(p, x, method), actual)
@@ -135,6 +144,11 @@ def test_polyshift():
     assert polyshift(polyone, 5) == polyone
     assert polyshift((1, 2, 3), 5) == polycom((1, 2, 3), polyaddc(polyx, -5))
 
+def test_polyscale():
+    assert polyscale(polyzero, 5) == polyzero
+    assert polyscale(polyone, 5) == polyone
+    assert polyscale((1, 2, 3), 5) == polycom((1, 2, 3), polyscalarmul(5, polyx))
+
 
 #arithmetic
 def test_polypos():
@@ -182,7 +196,7 @@ def test_polydivmod():
 def test_polymul():
     for method in {'naive', 'karatsuba'}:
         for _ in range(1000):
-            ps = [polyrand(randint(1, 10)) for _ in range(randint(1, 4))]
+            ps = [polyrand(randint(0, 10)) for _ in range(randint(1, 4))]
             prediction = polymul(*ps, method=method)
             actual = reduce(np.polynomial.polynomial.polymul, ps)
             assert np.allclose(prediction, actual)
@@ -224,26 +238,28 @@ def test_polypow():
 
 def test_polyder():
     for _ in range(1000):
-        p = polyrand(randint(1, 10))
-        assert np.allclose(polyder(p),
-                np.polynomial.polynomial.polyder(p))
+        p = polyrand(randint(0, 10))
+        k = randint(1, 10)
+        assert np.allclose(polyder(p, k),
+                np.polynomial.polynomial.polyder(p, k))
     assert polyder(polyzero) == polyzero
     assert polyder(polyone) == polyzero
 
 def test_polyantider():
     for _ in range(1000):
-        p, c = polyrand(randint(1, 10)), gauss()
-        assert np.allclose(polyantider(p, c=c),
-                np.polynomial.polynomial.polyint(p, k=c))
+        p = polyrand(randint(0, 10))
+        b, c = random(), random()
+        assert np.allclose(polyantider(p, b=b, c=c),
+                np.polynomial.polynomial.polyint(p, k=c, lbnd=b))
     assert polytrim(polyantider(polyzero)) == polyzero
     assert polyantider(polyzero, c=1) == polyone
     assert polyantider(polyone) == polyx
-    assert polyantider(polyzero, n=2, c=(1, 2)) == (2, 1)
 
 
 #sympy
 def test_polysympify():
-    assert polysympify((1, 2, 3)) == spPoly(1+2*spx+3*spx**2)
+    assert polysympify((1, 2, 3)) == sp.Poly(1+2*spx+3*spx**2)
+    assert polysympify(polyzero) == 0
 
 def test_polyunsympify():
-    assert polyunsympify(spPoly(1+2*spx+3*spx**2)) == (1, 2, 3)
+    assert polyunsympify(sp.Poly(1+2*spx+3*spx**2)) == (1, 2, 3)

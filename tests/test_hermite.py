@@ -5,21 +5,13 @@ from random import gauss, randint
 from functools import reduce
 from itertools import islice
 from fractions import Fraction
+from math import sqrt, pi, factorial, isclose
 import sympy as sp
 from sympy.abc import x as spx
 
 
 
 #creation
-def test_hermzero():
-    assert hermzero == ()
-
-def test_hermone():
-    assert hermone == (1,)
-
-def test_hermx():
-    assert hermx == (0, Fraction(1, 2))
-
 def test_H0():
     assert H0 == (1,)
 
@@ -29,28 +21,22 @@ def test_H1():
 def test_H2():
     assert H2 == (-2, 0, 4)
 
-def test_hermrand():
-    h = hermrand(3)
-    assert isinstance(h, tuple) and polydeg(h)==3
-
-def test_hermrandn():
-    h = hermrandn(3)
-    assert isinstance(h, tuple) and polydeg(h)==3
-
-def test_hermfromroots():
-    for _ in range(100):
-        r = tuple(randint(-100, +100) for _ in range(randint(1, 10)))
-        h = hermfromroots(*r)
-        assert all(hermval(h, ri)==0 for ri in r)
-    assert hermfromroots() == hermone
-
 def test_herm():
     for method in {'recursive', 'iterative', 'explicit'}:
-        for n in range(25): #fails at n=29
+        for n in range(25): #numpy fails at n=29
             prediction = herm(n, method)
             actual = np.polynomial.hermite.herm2poly(vecbasis(n))
             assert np.array_equal(prediction, actual)
     assert tuple(islice(herms(), 10)) == tuple(herm(i) for i in range(10))
+
+def test_hermzero():
+    assert hermzero == ()
+
+def test_hermone():
+    assert hermone == (1,)
+
+def test_hermx():
+    assert hermx == (0, Fraction(1, 2))
 
 def test_hermmono():
     for method in {'recursive', 'iterative', 'explicit'}:
@@ -59,6 +45,48 @@ def test_hermmono():
             actual = np.polynomial.hermite.poly2herm(polymono(n))
             assert np.allclose(np.array(prediction, dtype=float), actual)
     assert tuple(islice(hermmonos(), 10)) == tuple(hermmono(i) for i in range(10))
+
+def test_hermrand():
+    for n in range(-1, 10):
+        h = hermrand(n)
+        assert isinstance(h, tuple) and hermdeg(h)==n
+
+def test_hermrandn():
+    assert hermrandn(-1, normed=False) == ()
+    for n in range(10):
+        h = hermrandn(n)
+        assert isinstance(h, tuple) and hermdeg(h)==n and isclose(hermabs(h), 1)
+
+def test_hermfromroots():
+    for _ in range(100):
+        r = tuple(randint(-100, +100) for _ in range(randint(1, 10)))
+        h = hermfromroots(*r)
+        assert all(hermval(h, ri)==0 for ri in r)
+    assert hermfromroots() == hermone
+
+#Hilbert space
+def test_hermweighti():
+    for n in range(20):
+        assert hermweighti(n) == 2**n*factorial(n)
+
+def test_hermweightis():
+    for n, x in enumerate(islice(hermweightis(), 20)):
+        assert hermweighti(n) == x
+
+def test_hermweight():
+    for n in range(20):
+        assert isclose(hermweight(n), sqrt(pi)*2**n*factorial(n))
+
+def test_hermweights():
+    for n, x in enumerate(islice(hermweights(), 20)):
+        assert isclose(hermweight(n), x)
+
+def test_hermdoti():
+    for _ in range(20):
+        a = [randint(-100, +100) for _ in range(randint(0, 10))]
+        b = [randint(-100, +100) for _ in range(randint(0, 10))]
+        
+        assert hermdoti(a, b) == sum(ai*bi * 2**i*factorial(i) for i, (ai, bi) in enumerate(zip(a, b)))
 
 
 #evaluation
@@ -148,6 +176,14 @@ def test_hermmulx():
         actual = np.polynomial.hermite.hermmulx(h)
         assert np.allclose(prediction, actual)
 
+def test_hermmulHn():
+    assert hermmulHn(hermzero, 5) == hermzero
+    for _ in range(100):
+        h = np.random.rand(np.random.randint(1, 5))
+        n = randint(0, 20)
+        
+        assert np.allclose(hermmulHn(h, n), hermmul(h, vecbasis(n)))
+
 def test_hermpow():
     for method in {'naive', 'binary'}:
         assert hermpow(hermzero, 0) == hermone
@@ -161,7 +197,7 @@ def test_hermpow():
             h = np.random.rand(np.random.randint(0, 5))
             n = np.random.randint(0, 5)
             
-            prediction = hermpow(h, n, method)
+            prediction = hermpow(tuple(h), n, method)
             actual = np.polynomial.hermite.hermpow(h, n) if h.size else []
             assert np.allclose(prediction, actual)
 
@@ -172,11 +208,12 @@ def test_hermmulpow():
 #calculus
 def test_hermder():
     for _ in range(100):
-        h = np.random.rand(np.random.randint(0, 10))
-        
-        prediction = hermder(h)
-        actual = np.polynomial.hermite.hermder(h) if h.size else []
-        assert np.allclose(prediction, actual)
+        n = randint(0, 10)
+        k = randint(0, 10)
+        h = np.random.rand(n)
+        prediction = hermder(h, k)
+        actual = np.polynomial.hermite.hermder(h if len(h) else [], k)
+        assert np.allclose((prediction if len(prediction) else [0]), actual)
 
 def test_hermantider():
     for _ in range(100):
@@ -186,7 +223,6 @@ def test_hermantider():
         actual = np.polynomial.hermite.hermint(h) if h.size else [0]
         actual = hermaddc(actual, hermvalzero(prediction))
         assert np.allclose(prediction, actual)
-
 
 #sympy
 def test_hermsympify():
