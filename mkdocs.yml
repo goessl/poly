@@ -12,6 +12,7 @@ nav:
   - Home: index.md
   - standard.md
   - hermite.md
+  - sparse.md
 
 theme:
   name: material

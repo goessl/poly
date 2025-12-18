@@ -62,7 +62,7 @@ $$
     x \qquad x^{(P)}=\begin{pmatrix} 0 \\ 1 \end{pmatrix}
 $$
 
-A tuple with a zero and a one `(0, 1)`.
+A tuple with a zero and a one: `(0, 1)`.
 
 See also
 --------

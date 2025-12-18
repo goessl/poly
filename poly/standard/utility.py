@@ -55,7 +55,7 @@ def polyeq(p, q):
     return veceq(p, q)
 
 def polytrim(p, tol=1e-9):
-    r"""Remove all leading near zero (`abs(p_i)<=tol`) coefficients.
+    r"""Remove all leading near zero (`abs(a_i)<=tol`) coefficients.
     
     $$
         \sum_{k=0}^na_kx^k \ \text{where} \ n=\max\{\, k\mid |a_k|>\text{tol}\,\}\cup\{-1\}

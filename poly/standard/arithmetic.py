@@ -83,7 +83,7 @@ def polyaddc(p, c, n=0):
         p + cx^n
     $$
     
-    More efficient than `polyadd(p, polymonom(n, c))`.
+    More efficient than `polyadd(p, polymono(n, c))`.
     
     Complexity
     ----------
@@ -131,7 +131,7 @@ def polysubc(p, c, n=0):
         p - cx^n
     $$
     
-    More efficient than `polysub(p, polymonom(n, c))`.
+    More efficient than `polysub(p, polymono(n, c))`.
     
     Complexity
     ----------
@@ -370,7 +370,7 @@ def polymulx(p, n=1, zero=0):
         px^n
     $$
     
-    More efficient than `polymul(p, polymonom(n, c))`.
+    More efficient than `polymul(p, polymonom(n))`.
     
     Complexity
     ----------

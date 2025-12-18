@@ -36,6 +36,7 @@ This ways the coefficient indices correspond to the monomial exponent (or the ba
 
 - Modules
   - [x] Hermite polynomials module
+  - [x] Sparse module
   - [ ] Object oriented module
   - [ ] Parallelised module
   - [ ] Multivariate module
