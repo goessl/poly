@@ -1,0 +1,4219 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A Python package for polynomials.">
+      
+      
+        <meta name="author" content="Sebastian Gössl">
+      
+      
+        <link rel="canonical" href="https://goessl.github.io/poly/sparse/">
+      
+      
+        <link rel="prev" href="../hermite/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Sparse - poly</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/complexity.css">
+    
+      <link rel="stylesheet" href="../stylesheets/see-also.css">
+    
+      <link rel="stylesheet" href="../stylesheets/references.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sparse" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="poly" class="md-header__button md-logo" aria-label="poly" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            poly
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Sparse
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/goessl/poly" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    goessl/poly
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="poly" class="md-nav__button md-logo" aria-label="poly" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    poly
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/goessl/poly" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    goessl/poly
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../standard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Standard
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hermite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hermite Polynomials
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Sparse
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sparse
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#poly.sparse--docstring-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docstring conventions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poly.sparse.creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      creation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="creation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polyszero" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyszero
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polysone" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysone
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polysx" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polysmono" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysmono
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polysmonos" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysmonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polysrand" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysrand
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polysrandn" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysrandn
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polysfromroots" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysfromroots
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poly.sparse.utility" class="md-nav__link">
+    <span class="md-ellipsis">
+      utility
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="utility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.utility.polysdeg" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysdeg
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.utility.polyseq" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyseq
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.utility.polystrim" class="md-nav__link">
+    <span class="md-ellipsis">
+      polystrim
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.utility.polysround" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysround
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poly.sparse.evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      evaluation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.evaluation.polysval" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysval
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.evaluation.polysvalzero" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysvalzero
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.evaluation.polyscom" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyscom
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.evaluation.polysshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysshift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.evaluation.polysscale" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysscale
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      arithmetic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="arithmetic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polyspos" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyspos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysneg" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysneg
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysadd" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysadd
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysaddc" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysaddc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polyssub" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyssub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polyssubc" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyssubc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysscalarmul" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysscalarmul
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysscalartruediv" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysscalartruediv
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysscalarfloordiv" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysscalarfloordiv
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysscalarmod" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysscalarmod
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysscalardivmod" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysscalardivmod
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysmul" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysmul
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysmul_naive" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysmul_naive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysmulx" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysmulx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polyspow" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyspow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polyspow_naive" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyspow_naive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polyspow_binary" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyspow_binary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polyspows" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyspows
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poly.sparse.calculus" class="md-nav__link">
+    <span class="md-ellipsis">
+      calculus
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="calculus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.calculus.polysder" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.calculus.polysantider" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysantider
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poly.sparse.conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      conversion
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="conversion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.conversion.polystod" class="md-nav__link">
+    <span class="md-ellipsis">
+      polystod
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.conversion.polydtos" class="md-nav__link">
+    <span class="md-ellipsis">
+      polydtos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.conversion.polyssympify" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyssympify
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.conversion.polysunsympify" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysunsympify
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#poly.sparse--docstring-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docstring conventions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poly.sparse.creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      creation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="creation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polyszero" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyszero
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polysone" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysone
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polysx" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polysmono" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysmono
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polysmonos" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysmonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polysrand" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysrand
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polysrandn" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysrandn
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.creation.polysfromroots" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysfromroots
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poly.sparse.utility" class="md-nav__link">
+    <span class="md-ellipsis">
+      utility
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="utility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.utility.polysdeg" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysdeg
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.utility.polyseq" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyseq
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.utility.polystrim" class="md-nav__link">
+    <span class="md-ellipsis">
+      polystrim
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.utility.polysround" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysround
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poly.sparse.evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      evaluation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.evaluation.polysval" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysval
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.evaluation.polysvalzero" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysvalzero
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.evaluation.polyscom" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyscom
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.evaluation.polysshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysshift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.evaluation.polysscale" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysscale
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      arithmetic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="arithmetic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polyspos" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyspos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysneg" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysneg
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysadd" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysadd
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysaddc" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysaddc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polyssub" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyssub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polyssubc" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyssubc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysscalarmul" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysscalarmul
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysscalartruediv" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysscalartruediv
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysscalarfloordiv" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysscalarfloordiv
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysscalarmod" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysscalarmod
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysscalardivmod" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysscalardivmod
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysmul" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysmul
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysmul_naive" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysmul_naive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polysmulx" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysmulx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polyspow" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyspow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polyspow_naive" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyspow_naive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polyspow_binary" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyspow_binary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.arithmetic.polyspows" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyspows
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poly.sparse.calculus" class="md-nav__link">
+    <span class="md-ellipsis">
+      calculus
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="calculus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.calculus.polysder" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.calculus.polysantider" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysantider
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poly.sparse.conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      conversion
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="conversion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.conversion.polystod" class="md-nav__link">
+    <span class="md-ellipsis">
+      polystod
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.conversion.polydtos" class="md-nav__link">
+    <span class="md-ellipsis">
+      polydtos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.conversion.polyssympify" class="md-nav__link">
+    <span class="md-ellipsis">
+      polyssympify
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poly.sparse.conversion.polysunsympify" class="md-nav__link">
+    <span class="md-ellipsis">
+      polysunsympify
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="sparse">Sparse</h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+
+    <div class="doc doc-contents first">
+
+        <p>Sparse polynomials.</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span><span class="w"> </span><span class="nn">poly</span><span class="w"> </span><span class="kn">import</span> <span class="n">polysval</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">2</span><span class="p">}</span> <span class="c1">#p(x)=2*x^3+1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">polysval</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</code></pre></div>
+<p>Prefixed by <code>polys...</code> (poly - sparse).</p>
+<p>All functions accept polynomials and return them as <code>dict</code>s (monomial-exponent:coefficient).</p>
+<p>Index keys are expected to be integers.</p>
+<h3 id="poly.sparse--docstring-conventions">Docstring conventions</h3>
+<p>Summary</p>
+<p>Math notation (vector notation if possible, index notation, domain &amp; codomain)</p>
+<p>More information ("More efficient than ...").</p>
+
+
+<details class="complexity" open>
+  <summary>Complexity</summary>
+  <p>For a polynomial with <span class="arithmatex">\(n\)</span> elements there will be - <span class="arithmatex">\(x\)</span> scalar additions (<code>add</code>), ...</p>
+</details>
+
+<details class="note" open>
+  <summary>Notes</summary>
+  <p>Design choices</p>
+</details>
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <p>Similar functions</p>
+</details>
+
+<details class="references" open>
+  <summary>References</summary>
+  <p>Wikipedia, numpy, ...</p>
+</details>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="poly.sparse.creation" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <code>creation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="poly.sparse.creation.polyszero" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">polyszero</span> <span class="o">=</span> <span class="n">vecszero</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Zero polynomial.</p>
+<div class="arithmatex">\[
+    0
+\]</div>
+<p>An empty <code>dict</code>: <code>{}</code>.</p>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>other constants: <a class="autorefs autorefs-internal" title="            polysone = {0: 1}" href="#poly.sparse.creation.polysone"><code>polysone</code></a>, <a class="autorefs autorefs-internal" title="            polysx = {1: 1}" href="#poly.sparse.creation.polysx"><code>polysx</code></a></li>
+<li>for any degree: <a class="autorefs autorefs-internal" title="            polysmono(i, c=1)" href="#poly.sparse.creation.polysmono"><code>polysmono</code></a></li>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.creation.vecszero"><code>vector.vecszero</code></a></li>
+</ul>
+</details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="poly.sparse.creation.polysone" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">polysone</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Constant one polynomial.</p>
+<div class="arithmatex">\[
+    1
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>other constants: <a class="autorefs autorefs-internal" title="            polyszero = vecszero" href="#poly.sparse.creation.polyszero"><code>polyszero</code></a>, <a class="autorefs autorefs-internal" title="            polysx = {1: 1}" href="#poly.sparse.creation.polysx"><code>polysx</code></a></li>
+<li>for any degree: <a class="autorefs autorefs-internal" title="            polysmono(i, c=1)" href="#poly.sparse.creation.polysmono"><code>polysmono</code></a></li>
+</ul>
+</details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="poly.sparse.creation.polysx" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">polysx</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Identity polynomial.</p>
+<div class="arithmatex">\[
+    x
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>other constants: <a class="autorefs autorefs-internal" title="            polyszero = vecszero" href="#poly.sparse.creation.polyszero"><code>polyszero</code></a>, <a class="autorefs autorefs-internal" title="            polysone = {0: 1}" href="#poly.sparse.creation.polysone"><code>polysone</code></a></li>
+<li>for any degree: <a class="autorefs autorefs-internal" title="            polysmono(i, c=1)" href="#poly.sparse.creation.polysmono"><code>polysmono</code></a></li>
+</ul>
+</details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.creation.polysmono" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysmono</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return a monomial of degree <code>n</code>.</p>
+<div class="arithmatex">\[
+    cx^n
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>other constants: <a class="autorefs autorefs-internal" title="            polyszero = vecszero" href="#poly.sparse.creation.polyszero"><code>polyszero</code></a>, <a class="autorefs autorefs-internal" title="            polysone = {0: 1}" href="#poly.sparse.creation.polysone"><code>polysone</code></a>, <a class="autorefs autorefs-internal" title="            polysx = {1: 1}" href="#poly.sparse.creation.polysx"><code>polysx</code></a></li>
+<li>for all monomials: <a class="autorefs autorefs-internal" title="            polysmonos(start=0, c=1)" href="#poly.sparse.creation.polysmonos"><code>polysmonos</code></a></li>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.creation.vecsbasis"><code>vector.vecsbasis</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\creation.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysmono</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return a monomial of degree `n`.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        cx^n</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - other constants: [`polyszero`][poly.sparse.creation.polyszero], [`polysone`][poly.sparse.creation.polysone], [`polysx`][poly.sparse.creation.polysx]</span>
+<span class="sd">    - for all monomials: [`polysmonos`][poly.sparse.creation.polysmonos]</span>
+<span class="sd">    - wraps: [`vector.vecsbasis`](https://goessl.github.io/vector/sparse/#vector.sparse.creation.vecsbasis)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecsbasis</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="k">else</span> <span class="n">polyszero</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.creation.polysmonos" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysmonos</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Yield all monomials.</p>
+<div class="arithmatex">\[
+    \left(x^n\right)_\mathbb{n\in\mathbb{N_0}} = \left(1, x, x^2, \dots \right)
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>for single monomial: <a class="autorefs autorefs-internal" title="            polysmono(i, c=1)" href="#poly.sparse.creation.polysmono"><code>polysmono</code></a></li>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.creation.vecsbases"><code>vector.vecsbases</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\creation.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysmonos</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Yield all monomials.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        \left(x^n\right)_\mathbb{n\in\mathbb{N_0}} = \left(1, x, x^2, \dots \right)</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - for single monomial: [`polysmono`][poly.sparse.creation.polysmono]</span>
+<span class="sd">    - wraps: [`vector.vecsbases`](https://goessl.github.io/vector/sparse/#vector.sparse.creation.vecsbases)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">yield from</span> <span class="n">vecsbases</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.creation.polysrand" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysrand</span><span class="p">(</span><span class="n">n</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return a random polynomial of degree <code>n</code>.</p>
+<div class="arithmatex">\[
+    \sum_ka_kx^k \quad a_k\sim\mathcal{U}^n([0, 1[)
+\]</div>
+<p>The coefficients are sampled from a uniform distribution in <code>[0, 1[</code>.</p>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.creation.vecsrand"><code>vector.vecsrand</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\creation.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysrand</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return a random polynomial of degree `n`.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        \sum_ka_kx^k \quad a_k\sim\mathcal{U}^n([0, 1[)</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    The coefficients are sampled from a uniform distribution in `[0, 1[`.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - wraps: [`vector.vecsrand`](https://goessl.github.io/vector/sparse/#vector.sparse.creation.vecsrand)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecsrand</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">n</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="k">else</span> <span class="n">polyszero</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.creation.polysrandn" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysrandn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return a random polynomial of degree <code>n</code>.</p>
+<div class="arithmatex">\[
+    \sum_{k=0}^na_kx^k \quad a_k\sim\mathcal{N}(\mu, \sigma)
+\]</div>
+<p>The coefficients are sampled from a normal distribution.</p>
+<p>Normed with respect to the euclidian vector norm <span class="arithmatex">\(\sum_k|a_k|^2\)</span>.</p>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>wraps: <a href="https://goessl.github.io/vector/functional/#vector.functional.creation.vecsrandn"><code>vector.vecsrandn</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\creation.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysrandn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return a random polynomial of degree `n`.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        \sum_{k=0}^na_kx^k \quad a_k\sim\mathcal{N}(\mu, \sigma)</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    The coefficients are sampled from a normal distribution.</span>
+
+<span class="sd">    Normed with respect to the euclidian vector norm $\sum_k|a_k|^2$.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - wraps: [`vector.vecsrandn`](https://goessl.github.io/vector/functional/#vector.functional.creation.vecsrandn)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecsrandn</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="n">normed</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span> <span class="k">if</span> <span class="n">n</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="k">else</span> <span class="n">polyszero</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.creation.polysfromroots" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysfromroots</span><span class="p">(</span><span class="o">*</span><span class="n">xs</span><span class="p">,</span> <span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the polynomial with the given roots.</p>
+<div class="arithmatex">\[
+    \prod_k(x-x_k)
+\]</div>
+
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\creation.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysfromroots</span><span class="p">(</span><span class="o">*</span><span class="n">xs</span><span class="p">,</span> <span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the polynomial with the given roots.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        \prod_k(x-x_k)</span>
+<span class="sd">    $$</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="n">one</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xs</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">polyssub</span><span class="p">(</span><span class="n">polysmulx</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">polysscalarmul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">r</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">r</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="poly.sparse.utility" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <code>utility</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.utility.polysdeg" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysdeg</span><span class="p">(</span><span class="n">p</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the degree of a polynomial.</p>
+<div class="arithmatex">\[
+    \deg(p)
+\]</div>
+<p>Doesn't handle leading zeros, use <a class="autorefs autorefs-internal" title="            polystrim(p, tol=1e-09)" href="#poly.sparse.utility.polystrim"><code>polystrim</code></a>
+if needed.</p>
+<p><span class="arithmatex">\(\deg(0)=-1\)</span> is used for the empty zero polynomial.</p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\utility.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysdeg</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the degree of a polynomial.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        \deg(p)</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    Doesn&#39;t handle leading zeros, use [`polystrim`][poly.sparse.utility.polystrim]</span>
+<span class="sd">    if needed.</span>
+
+<span class="sd">    $\deg(0)=-1$ is used for the empty zero polynomial.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">default</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.utility.polyseq" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polyseq</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return if two polynomials are equal.</p>
+<div class="arithmatex">\[
+    p \overset{?}{=} q
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.utility.vecseq"><code>vecseq</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\utility.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polyseq</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return if two polynomials are equal.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        p \overset{?}{=} q</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - wraps: [`vecseq`](https://goessl.github.io/vector/sparse/#vector.sparse.utility.vecseq)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecseq</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.utility.polystrim" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polystrim</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-09</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Remove all near zero (<code>abs(v_i)&lt;=tol</code>) coefficients.</p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\utility.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polystrim</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove all near zero (`abs(v_i)&lt;=tol`) coefficients.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecstrim</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.utility.polysround" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysround</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ndigits</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Round all coefficients to the given precision.</p>
+<div class="arithmatex">\[
+    \sum_k\text{round}_\text{ndigits}(a_k)x^k
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>wraps: <a href="https://goessl.github.io/vector/functional/#vector.functional.utility.vecsround"><code>vector.vecsround</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\utility.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysround</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ndigits</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Round all coefficients to the given precision.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        \sum_k\text{round}_\text{ndigits}(a_k)x^k</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - wraps: [`vector.vecsround`](https://goessl.github.io/vector/functional/#vector.functional.utility.vecsround)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecsround</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ndigits</span><span class="o">=</span><span class="n">ndigits</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="poly.sparse.evaluation" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <code>evaluation</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.evaluation.polysval" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysval</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the value of polynomial <code>p</code> evaluated at point <code>x</code>.</p>
+<div class="arithmatex">\[
+    p(x)
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>implementations: <a class="autorefs autorefs-internal" title="            polyval_naive(p, x)" href="../standard/#poly.standard.evaluation.polyval_naive"><code>polyval_naive</code></a>,
+<a class="autorefs autorefs-internal" title="            polyval_iterative(p, x)" href="../standard/#poly.standard.evaluation.polyval_iterative"><code>polyval_iterative</code></a>,
+<a class="autorefs autorefs-internal" title="            polyval_horner(p, x)" href="../standard/#poly.standard.evaluation.polyval_horner"><code>polyval_horner</code></a></li>
+<li>for consecutive monomials: <a class="autorefs autorefs-internal" title="            polyvals(x, start=0)" href="../standard/#poly.standard.evaluation.polyvals"><code>polyvals</code></a></li>
+<li>for <span class="arithmatex">\(x=0\)</span>: <a class="autorefs autorefs-internal" title="            polyvalzero(p, zero=0)" href="../standard/#poly.standard.evaluation.polyvalzero"><code>polyvalzero</code></a></li>
+<li>for polynomial arguments: <a class="autorefs autorefs-internal" title="            polycom(p, q, method='iterative')" href="../standard/#poly.standard.evaluation.polycom"><code>polycom</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\evaluation.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysval</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the value of polynomial `p` evaluated at point `x`.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        p(x)</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - implementations: [`polyval_naive`][poly.standard.polyval_naive],</span>
+<span class="sd">    [`polyval_iterative`][poly.standard.polyval_iterative],</span>
+<span class="sd">    [`polyval_horner`][poly.standard.polyval_horner]</span>
+<span class="sd">    - for consecutive monomials: [`polyvals`][poly.standard.polyvals]</span>
+<span class="sd">    - for $x=0$: [`polyvalzero`][poly.standard.polyvalzero]</span>
+<span class="sd">    - for polynomial arguments: [`polycom`][poly.standard.polycom]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">sumprod_default</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="nb">map</span><span class="p">(</span><span class="nb">pow</span><span class="p">,</span> <span class="n">repeat</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">p</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">default</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)(</span><span class="mi">0</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.evaluation.polysvalzero" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysvalzero</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">zero</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the value of polynomial <code>p</code> evaluated at point 0.</p>
+<div class="arithmatex">\[
+    p(0)
+\]</div>
+<p>More efficient than <code>polysval(p, 0)</code>.</p>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>for any argument: <a class="autorefs autorefs-internal" title="            polysval(p, x)" href="#poly.sparse.evaluation.polysval"><code>polysval</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\evaluation.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysvalzero</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">zero</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the value of polynomial `p` evaluated at point 0.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        p(0)</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    More efficient than `polysval(p, 0)`.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - for any argument: [`polysval`][poly.sparse.evaluation.polysval]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">zero</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.evaluation.polyscom" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polyscom</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the polynomial composition of <code>p</code> &amp; <code>q</code>.</p>
+<div class="arithmatex">\[
+    p\circ q
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>for <span class="arithmatex">\(q=x-s\)</span>: <a class="autorefs autorefs-internal" title="            polysshift(p, s, one=1)" href="#poly.sparse.evaluation.polysshift"><code>polysshift</code></a></li>
+<li>for scalar arguments: <a class="autorefs autorefs-internal" title="            polysval(p, x)" href="#poly.sparse.evaluation.polysval"><code>polysval</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\evaluation.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polyscom</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the polynomial composition of `p` &amp; `q`.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        p\circ q</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - for $q=x-s$: [`polysshift`][poly.sparse.evaluation.polysshift]</span>
+<span class="sd">    - for scalar arguments: [`polysval`][poly.sparse.evaluation.polysval]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">polysadd</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">polysscalarmul</span><span class="p">(</span><span class="n">pi</span><span class="p">,</span> <span class="n">polyspow</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pi</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.evaluation.polysshift" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysshift</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the polynomial <code>p</code> shifted by <code>s</code> on the abscissa.</p>
+<div class="arithmatex">\[
+    p(x - s)
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>for polynomial argument: <a class="autorefs autorefs-internal" title="            polyscom(p, q)" href="#poly.sparse.evaluation.polyscom"><code>polyscom</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\evaluation.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysshift</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the polynomial `p` shifted by `s` on the abscissa.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        p(x - s)</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - for polynomial argument: [`polyscom`][poly.sparse.evaluation.polyscom]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">polyscom</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">one</span><span class="p">})</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.evaluation.polysscale" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysscale</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the polynomial <code>p</code> scaled by 1/<code>a</code> on the abscissa.</p>
+<div class="arithmatex">\[
+    p(ax)
+\]</div>
+<p>More efficient than <code>polyscom(p, polysscalarmul(a, polysx))</code>.</p>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>for polynomial argument: <a class="autorefs autorefs-internal" title="            polyscom(p, q)" href="#poly.sparse.evaluation.polyscom"><code>polyscom</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\evaluation.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysscale</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the polynomial `p` scaled by 1/`a` on the abscissa.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        p(ax)</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    More efficient than `polyscom(p, polysscalarmul(a, polysx))`.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - for polynomial argument: [`polyscom`][poly.sparse.evaluation.polyscom]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span><span class="n">a</span><span class="o">**</span><span class="n">i</span><span class="o">*</span><span class="n">pi</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pi</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="poly.sparse.arithmetic" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <code>arithmetic</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polyspos" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polyspos</span><span class="p">(</span><span class="n">p</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the polynomial with the unary positive operator applied.</p>
+<div class="arithmatex">\[
+    +p
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecspos"><code>vecspos</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polyspos</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the polynomial with the unary positive operator applied.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        +p</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - wraps: [`vecspos`](https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecspos)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecspos</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polysneg" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysneg</span><span class="p">(</span><span class="n">p</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the polynomial with the unary negative operator applied.</p>
+<div class="arithmatex">\[
+    -p
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecsneg"><code>vecsneg</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysneg</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the polynomial with the unary negative operator applied.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        -p</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - wraps: [`vecsneg`](https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecsneg)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecsneg</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polysadd" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysadd</span><span class="p">(</span><span class="o">*</span><span class="n">ps</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the sum of polynomials.</p>
+<div class="arithmatex">\[
+    p_0+p_1+\cdots
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecsadd"><code>vecsadd</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysadd</span><span class="p">(</span><span class="o">*</span><span class="n">ps</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the sum of polynomials.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        p_0+p_1+\cdots</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - wraps: [`vecsadd`](https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecsadd)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecsadd</span><span class="p">(</span><span class="o">*</span><span class="n">ps</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polysaddc" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysaddc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the sum of polynomial <code>p</code> and a monomial of degree <code>n</code>.</p>
+<div class="arithmatex">\[
+    p+cx^n
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecsaddc"><code>vecsaddc</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysaddc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the sum of polynomial `p` and a monomial of degree `n`.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        p+cx^n</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - wraps: [`vecsaddc`](https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecsaddc)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecsaddc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polyssub" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polyssub</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the difference of two polynomials.</p>
+<div class="arithmatex">\[
+    p-q
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecssub"><code>vecssub</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polyssub</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the difference of two polynomials.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        p-q</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - wraps: [`vecssub`](https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecssub)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecssub</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polyssubc" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polyssubc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the difference of polynomial <code>p</code> and a monomial of degree <code>n</code>.</p>
+<div class="arithmatex">\[
+    p-cx^n
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecssubc"><code>vecssubc</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polyssubc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the difference of polynomial `p` and a monomial of degree `n`.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        p-cx^n</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - wraps: [`vecssubc`](https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecssubc)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecssubc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polysscalarmul" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysscalarmul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the product of a scalar and a polynomial.</p>
+<div class="arithmatex">\[
+    ap
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecsmul"><code>vecsmul</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysscalarmul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the product of a scalar and a polynomial.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        ap</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - wraps: [`vecsmul`](https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecsmul)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecsmul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polysscalartruediv" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysscalartruediv</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the true division of a polynomial and a scalar.</p>
+<div class="arithmatex">\[
+    \frac{p}{a}
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecstruediv"><code>vecstruediv</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysscalartruediv</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the true division of a polynomial and a scalar.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        \frac{p}{a}</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - wraps: [`vecstruediv`](https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecstruediv)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecstruediv</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polysscalarfloordiv" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysscalarfloordiv</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the floor division of a polynomial and a scalar.</p>
+<div class="arithmatex">\[
+    \sum_k\left\lfloor\frac{a_k}{a}\right\rfloor x^k
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecsfloordiv"><code>vecsfloordiv</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysscalarfloordiv</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the floor division of a polynomial and a scalar.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        \sum_k\left\lfloor\frac{a_k}{a}\right\rfloor x^k</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - wraps: [`vecsfloordiv`](https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecsfloordiv)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecsfloordiv</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polysscalarmod" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysscalarmod</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the elementwise mod of a polynomial and a scalar.</p>
+<div class="arithmatex">\[
+    \sum_k\left(a_k \mod a\right)x^k
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecsmod"><code>vecsmod</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysscalarmod</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the elementwise mod of a polynomial and a scalar.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        \sum_k\left(a_k \mod a\right)x^k</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - wraps: [`vecsmod`](https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecsmod)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecsmod</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polysscalardivmod" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysscalardivmod</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the elementwise divmod of a polynomial and a scalar.</p>
+<div class="arithmatex">\[
+    \sum_k\left\lfloor\frac{a_k}{a}\right\rfloor x^k, \ \sum_k\left(a_k \mod a\right)x^k
+\]</div>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecsdivmod"><code>vecsdivmod</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysscalardivmod</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the elementwise divmod of a polynomial and a scalar.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        \sum_k\left\lfloor\frac{a_k}{a}\right\rfloor x^k, \ \sum_k\left(a_k \mod a\right)x^k</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - wraps: [`vecsdivmod`](https://goessl.github.io/vector/sparse/#vector.sparse.vector_space.vecsdivmod)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecsdivmod</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polysmul" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysmul</span><span class="p">(</span><span class="o">*</span><span class="n">ps</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;naive&#39;</span><span class="p">,</span> <span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the product of polynomials.</p>
+<div class="arithmatex">\[
+    p_0 p_1 \cdots
+\]</div>
+<p>Available methods are</p>
+<ul>
+<li><a class="autorefs autorefs-internal" title="            polysmul_naive(p, q)" href="#poly.sparse.arithmetic.polysmul_naive"><code>naive</code></a>.</li>
+</ul>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>implementations: <a class="autorefs autorefs-internal" title="            polysmul_naive(p, q)" href="#poly.sparse.arithmetic.polysmul_naive"><code>polysmul_naive</code></a></li>
+<li>for scalar factor: <a class="autorefs autorefs-internal" title="            polysscalarmul(a, p)" href="#poly.sparse.arithmetic.polysscalarmul"><code>polysscalarmul</code></a></li>
+<li>for monomial factor: <a class="autorefs autorefs-internal" title="            polysmulx(p, n=1)" href="#poly.sparse.arithmetic.polysmulx"><code>polysmulx</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysmul</span><span class="p">(</span><span class="o">*</span><span class="n">ps</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;naive&#39;</span><span class="p">,</span> <span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the product of polynomials.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        p_0 p_1 \cdots</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    Available methods are</span>
+
+<span class="sd">    - [`naive`][poly.sparse.arithmetic.polysmul_naive].</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - implementations: [`polysmul_naive`][poly.sparse.arithmetic.polysmul_naive]</span>
+<span class="sd">    - for scalar factor: [`polysscalarmul`][poly.sparse.arithmetic.polysscalarmul]</span>
+<span class="sd">    - for monomial factor: [`polysmulx`][poly.sparse.arithmetic.polysmulx]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">match</span> <span class="n">method</span><span class="p">:</span>
+        <span class="k">case</span> <span class="s1">&#39;naive&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">reduce_default</span><span class="p">(</span><span class="n">polysmul_naive</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="n">one</span><span class="p">})</span>
+        <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid method&#39;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polysmul_naive" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysmul_naive</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the product of two polynomials.</p>
+<div class="arithmatex">\[
+    pq
+\]</div>
+<p>Uses naive multiplication and summation.</p>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>for any implementation: <a class="autorefs autorefs-internal" title="            polysmul(*ps, method='naive', one=1)" href="#poly.sparse.arithmetic.polysmul"><code>polysmul</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysmul_naive</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the product of two polynomials.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        pq</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    Uses naive multiplication and summation.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - for any implementation: [`polysmul`][poly.sparse.arithmetic.polysmul]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pi</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">qj</span> <span class="ow">in</span> <span class="n">q</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">+</span><span class="n">j</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+                <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">qj</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">qj</span>
+    <span class="k">return</span> <span class="n">r</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polysmulx" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysmulx</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the product of polynomial <code>p</code> and a monomial of degree <code>n</code>.</p>
+<div class="arithmatex">\[
+    px^n
+\]</div>
+<p>More efficient than <code>polysmul(p, polysmonom(n))</code>.</p>
+
+
+<details class="complexity" open>
+  <summary>Complexity</summary>
+  <p>There are no scalar arithmetic operations.</p>
+</details>
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>for polynomial factor: <a class="autorefs autorefs-internal" title="            polysmul(*ps, method='naive', one=1)" href="#poly.sparse.arithmetic.polysmul"><code>polysmul</code></a></li>
+<li>wraps: <a href="https://goessl.github.io/vector/sparse/#vector.sparse.utility.vecsrshift"><code>vector.vecsrshift</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysmulx</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the product of polynomial `p` and a monomial of degree `n`.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        px^n</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    More efficient than `polysmul(p, polysmonom(n))`.</span>
+
+<span class="sd">    Complexity</span>
+<span class="sd">    ----------</span>
+<span class="sd">    There are no scalar arithmetic operations.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - for polynomial factor: [`polysmul`][poly.sparse.arithmetic.polysmul]</span>
+<span class="sd">    - wraps: [`vector.vecsrshift`](https://goessl.github.io/vector/sparse/#vector.sparse.utility.vecsrshift)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecsrshift</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polyspow" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polyspow</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;naive&#39;</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the polynomial <code>p</code> raised to the nonnegative <code>n</code>-th power.</p>
+<div class="arithmatex">\[
+    p^n
+\]</div>
+<p>Available methods are </p>
+<ul>
+<li><a class="autorefs autorefs-internal" title="            polyspow_naive(p, n, one=1)" href="#poly.sparse.arithmetic.polyspow_naive"><code>naive</code></a> &amp;</li>
+<li><a class="autorefs autorefs-internal" title="            polyspow_binary(p, n, one=1)" href="#poly.sparse.arithmetic.polyspow_binary"><code>binary</code></a>.</li>
+</ul>
+<p>TODO: mod parameter</p>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>implementations: <a class="autorefs autorefs-internal" title="            polyspow_naive(p, n, one=1)" href="#poly.sparse.arithmetic.polyspow_naive"><code>polyspow_naive</code></a>,
+<a class="autorefs autorefs-internal" title="            polyspow_binary(p, n, one=1)" href="#poly.sparse.arithmetic.polyspow_binary"><code>polyspow_binary</code></a></li>
+<li>for sequence of powers: <a class="autorefs autorefs-internal" title="            polyspows(p, start=0, one=1)" href="#poly.sparse.arithmetic.polyspows"><code>polyspows</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polyspow</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;naive&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the polynomial `p` raised to the nonnegative `n`-th power.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        p^n</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    Available methods are </span>
+
+<span class="sd">    - [`naive`][poly.sparse.arithmetic.polyspow_naive] &amp;</span>
+<span class="sd">    - [`binary`][poly.sparse.arithmetic.polyspow_binary].</span>
+
+<span class="sd">    TODO: mod parameter</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - implementations: [`polyspow_naive`][poly.sparse.arithmetic.polyspow_naive],</span>
+<span class="sd">    [`polyspow_binary`][poly.sparse.arithmetic.polyspow_binary]</span>
+<span class="sd">    - for sequence of powers: [`polyspows`][poly.sparse.arithmetic.polyspows]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">match</span> <span class="n">method</span><span class="p">:</span>
+        <span class="k">case</span> <span class="s1">&#39;naive&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">polyspow_naive</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+        <span class="k">case</span> <span class="s1">&#39;binary&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">polyspow_binary</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+        <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid method&#39;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polyspow_naive" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polyspow_naive</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the polynomial <code>p</code> raised to the nonnegative <code>n</code>-th power.</p>
+<div class="arithmatex">\[
+    p^n
+\]</div>
+<p>Uses repeated multiplication.</p>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>for any implementation: <a class="autorefs autorefs-internal" title="            polyspow(p, n, method='naive')" href="#poly.sparse.arithmetic.polyspow"><code>polyspow</code></a></li>
+<li>other implementations:
+<a class="autorefs autorefs-internal" title="            polyspow_binary(p, n, one=1)" href="#poly.sparse.arithmetic.polyspow_binary"><code>polyspow_binary</code></a></li>
+<li>uses: <a class="autorefs autorefs-internal" title="            polyspows(p, start=0, one=1)" href="#poly.sparse.arithmetic.polyspows"><code>polyspows</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polyspow_naive</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the polynomial `p` raised to the nonnegative `n`-th power.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        p^n</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    Uses repeated multiplication.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - for any implementation: [`polyspow`][poly.sparse.arithmetic.polyspow]</span>
+<span class="sd">    - other implementations:</span>
+<span class="sd">    [`polyspow_binary`][poly.sparse.arithmetic.polyspow_binary]</span>
+<span class="sd">    - uses: [`polyspows`][poly.sparse.arithmetic.polyspows]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">polyspows</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">one</span><span class="o">=</span><span class="n">one</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polyspow_binary" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polyspow_binary</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the polynomial <code>p</code> raised to the nonnegative <code>n</code>-th power.</p>
+<div class="arithmatex">\[
+    p^n
+\]</div>
+<p>Uses exponentiation by squaring.</p>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>for any implementation: <a class="autorefs autorefs-internal" title="            polyspow(p, n, method='naive')" href="#poly.sparse.arithmetic.polyspow"><code>polyspow</code></a></li>
+<li>other implementations:
+<a class="autorefs autorefs-internal" title="            polyspow_naive(p, n, one=1)" href="#poly.sparse.arithmetic.polyspow_naive"><code>polyspow_naive</code></a></li>
+</ul>
+</details>
+
+<details class="references" open>
+  <summary>References</summary>
+  <ul>
+<li><a href="https://en.wikipedia.org/wiki/Exponentiation_by_squaring">Wikipedia - Exponentiation by squaring</a></li>
+<li>Sequence <span class="arithmatex">\(C(k)\)</span>: <a href="https://oeis.org/A056791">A056791</a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polyspow_binary</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the polynomial `p` raised to the nonnegative `n`-th power.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        p^n</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    Uses exponentiation by squaring.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - for any implementation: [`polyspow`][poly.sparse.arithmetic.polyspow]</span>
+<span class="sd">    - other implementations:</span>
+<span class="sd">    [`polyspow_naive`][poly.sparse.arithmetic.polyspow_naive]</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    - [Wikipedia - Exponentiation by squaring](https://en.wikipedia.org/wiki/Exponentiation_by_squaring)</span>
+<span class="sd">    - Sequence $C(k)$: [A056791](https://oeis.org/A056791)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="n">one</span><span class="p">}</span> <span class="c1">#polysone</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">while</span> <span class="n">n</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">polysmul_naive</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">p</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">polysmul_naive</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">//=</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">r</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.arithmetic.polyspows" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polyspows</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Yield the powers of the polynomial <code>p</code>.</p>
+<div class="arithmatex">\[
+    (p^n)_{n\in\mathbb{N}_0} = (1, p, p^2, \dots)
+\]</div>
+<p>Uses iterative multiplication to calculate powers consecutively.</p>
+
+
+<details class="see-also" open>
+  <summary>See also</summary>
+  <ul>
+<li>used by: <a class="autorefs autorefs-internal" title="            polyspow_naive(p, n, one=1)" href="#poly.sparse.arithmetic.polyspow_naive"><code>polyspow_naive</code></a>, <a class="autorefs autorefs-internal" title="            polyscom(p, q)" href="#poly.sparse.evaluation.polyscom"><code>polyscom_iterative</code></a></li>
+<li>for scalar arguments: <a class="autorefs autorefs-internal" title="            polyvals(x, start=0)" href="../standard/#poly.standard.evaluation.polyvals"><code>polyvals</code></a></li>
+</ul>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polyspows</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Yield the powers of the polynomial `p`.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        (p^n)_{n\in\mathbb{N}_0} = (1, p, p^2, \dots)</span>
+<span class="sd">    $$</span>
+
+<span class="sd">    Uses iterative multiplication to calculate powers consecutively.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    - used by: [`polyspow_naive`][poly.sparse.arithmetic.polyspow_naive], [`polyscom_iterative`][poly.sparse.evaluation.polyscom]</span>
+<span class="sd">    - for scalar arguments: [`polyvals`][poly.standard.evaluation.polyvals]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="n">one</span><span class="p">}</span> <span class="c1">#polysone</span>
+    <span class="k">yield</span> <span class="p">(</span><span class="n">q</span> <span class="o">:=</span> <span class="n">reduce_default</span><span class="p">(</span><span class="n">polysmul_naive</span><span class="p">,</span> <span class="n">repeat</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">start</span><span class="p">),</span> <span class="n">initial</span><span class="o">=</span><span class="n">MISSING</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">p</span><span class="p">))</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">polysmul_naive</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="n">q</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="poly.sparse.calculus" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <code>calculus</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.calculus.polysder" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysder</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the <code>k</code>-th derivative of polynomial <code>p</code>.</p>
+<div class="arithmatex">\[
+    p^{(k)}
+\]</div>
+
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\calculus.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysder</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the `k`-th derivative of polynomial `p`.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        p^{(k)}</span>
+<span class="sd">    $$</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">i</span><span class="o">-</span><span class="n">k</span><span class="p">:</span><span class="n">perm</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">pi</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pi</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">i</span><span class="o">-</span><span class="n">k</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.calculus.polysantider" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysantider</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the antiderivative of polynomial <code>p</code>.</p>
+<div class="arithmatex">\[
+    \int_b^xp(y)\,\mathrm{d}y+c
+\]</div>
+
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\calculus.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysantider</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the antiderivative of polynomial `p`.</span>
+
+<span class="sd">    $$</span>
+<span class="sd">        \int_b^xp(y)\,\mathrm{d}y+c</span>
+<span class="sd">    $$</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">pi</span><span class="o">/</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pi</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="k">return</span> <span class="n">polysaddc</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">c</span><span class="o">-</span><span class="n">polysval</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">if</span> <span class="n">b</span> <span class="k">else</span> <span class="n">c</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="poly.sparse.conversion" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <code>conversion</code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.conversion.polystod" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polystod</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">zero</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return a sparse polynomial (<code>dict</code>) as a dense polynomial (<code>tuple</code>).</p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\conversion.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polystod</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">zero</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a sparse polynomial (`dict`) as a dense polynomial (`tuple`).&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecstod</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">zero</span><span class="o">=</span><span class="n">zero</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.conversion.polydtos" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polydtos</span><span class="p">(</span><span class="n">p</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return a dense polynomial (<code>tuple</code>) as a sparse polynomial (<code>dict</code>).</p>
+<p>The resulting <code>dict</code> is not <a class="autorefs autorefs-internal" title="            polystrim(p, tol=1e-09)" href="#poly.sparse.utility.polystrim">trimmed</a>.</p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\conversion.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polydtos</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a dense polynomial (`tuple`) as a sparse polynomial (`dict`).</span>
+
+<span class="sd">    The resulting `dict` is not [trimmed][poly.sparse.utility.polystrim].</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">vecdtos</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.conversion.polyssympify" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polyssympify</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">gen</span><span class="o">=</span><span class="n">x</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the coefficient mapping <code>p</code> as a <a href="https://docs.sympy.org/latest/modules/polys/reference.html#sympy.polys.polytools.Poly"><code>sympy.Poly</code></a>.</p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\conversion.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polyssympify</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">gen</span><span class="o">=</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the coefficient mapping `p` as a [`sympy.Poly`](https://docs.sympy.org/latest/modules/polys/reference.html#sympy.polys.polytools.Poly).&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Poly</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">gen</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="poly.sparse.conversion.polysunsympify" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysunsympify</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">gen</span><span class="o">=</span><span class="n">x</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return <a href="https://docs.sympy.org/latest/modules/polys/reference.html#sympy.polys.polytools.Poly"><code>sympy.Poly(p)</code></a> as a coefficient <code>dict</code>.</p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>poly\sparse\conversion.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysunsympify</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">gen</span><span class="o">=</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return [`sympy.Poly(p)`](https://docs.sympy.org/latest/modules/polys/reference.html#sympy.polys.polytools.Poly) as a coefficient `dict`.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">pi</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pi</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">as_dict</span><span class="p">(</span><span class="n">native</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../hermite/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Hermite Polynomials">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Hermite Polynomials
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 - 2025 Sebastian Gössl
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/goessl/" target="_blank" rel="noopener" title="goessl on Github" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://instagram.com/lordgoessl/" target="_blank" rel="noopener" title="goessl on Instagram" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M224.3 141a115 115 0 1 0-.6 230 115 115 0 1 0 .6-230m-.6 40.4a74.6 74.6 0 1 1 .6 149.2 74.6 74.6 0 1 1-.6-149.2m93.4-45.1a26.8 26.8 0 1 1 53.6 0 26.8 26.8 0 1 1-53.6 0m129.7 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8M399 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

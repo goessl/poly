@@ -861,6 +861,28 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sparse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sparse
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1647,7 +1669,7 @@ and results in functions like <a class="autorefs autorefs-internal" title="     
 <div class="arithmatex">\[
     x \qquad x^{(P)}=\begin{pmatrix} 0 \\ 1 \end{pmatrix}
 \]</div>
-<p>A tuple with a zero and a one <code>(0, 1)</code>.</p>
+<p>A tuple with a zero and a one: <code>(0, 1)</code>.</p>
 
 
 <details class="see-also" open>
@@ -2278,7 +2300,7 @@ convention was choosen to keep the return type consistent.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Remove all leading near zero (<code>abs(p_i)&lt;=tol</code>) coefficients.</p>
+        <p>Remove all leading near zero (<code>abs(a_i)&lt;=tol</code>) coefficients.</p>
 <div class="arithmatex">\[
     \sum_{k=0}^na_kx^k \ \text{where} \ n=\max\{\, k\mid |a_k|&gt;\text{tol}\,\}\cup\{-1\}
 \]</div>
@@ -2323,7 +2345,7 @@ convention was choosen to keep the return type consistent.</p>
 <span class="normal">74</span>
 <span class="normal">75</span>
 <span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polytrim</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Remove all leading near zero (`abs(p_i)&lt;=tol`) coefficients.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Remove all leading near zero (`abs(a_i)&lt;=tol`) coefficients.</span>
 
 <span class="sd">    $$</span>
 <span class="sd">        \sum_{k=0}^na_kx^k \ \text{where} \ n=\max\{\, k\mid |a_k|&gt;\text{tol}\,\}\cup\{-1\}</span>
@@ -4010,7 +4032,7 @@ convention was choosen to keep the return type consistent.</p>
 <div class="arithmatex">\[
     p + cx^n
 \]</div>
-<p>More efficient than <code>polyadd(p, polymonom(n, c))</code>.</p>
+<p>More efficient than <code>polyadd(p, polymono(n, c))</code>.</p>
 
 
 <details class="complexity" open>
@@ -4060,7 +4082,7 @@ convention was choosen to keep the return type consistent.</p>
 <span class="sd">        p + cx^n</span>
 <span class="sd">    $$</span>
 
-<span class="sd">    More efficient than `polyadd(p, polymonom(n, c))`.</span>
+<span class="sd">    More efficient than `polyadd(p, polymono(n, c))`.</span>
 
 <span class="sd">    Complexity</span>
 <span class="sd">    ----------</span>
@@ -4202,7 +4224,7 @@ convention was choosen to keep the return type consistent.</p>
 <div class="arithmatex">\[
     p - cx^n
 \]</div>
-<p>More efficient than <code>polysub(p, polymonom(n, c))</code>.</p>
+<p>More efficient than <code>polysub(p, polymono(n, c))</code>.</p>
 
 
 <details class="complexity" open>
@@ -4252,7 +4274,7 @@ convention was choosen to keep the return type consistent.</p>
 <span class="sd">        p - cx^n</span>
 <span class="sd">    $$</span>
 
-<span class="sd">    More efficient than `polysub(p, polymonom(n, c))`.</span>
+<span class="sd">    More efficient than `polysub(p, polymono(n, c))`.</span>
 
 <span class="sd">    Complexity</span>
 <span class="sd">    ----------</span>
@@ -5049,7 +5071,7 @@ convention was choosen to keep the return type consistent.</p>
 <div class="arithmatex">\[
     px^n
 \]</div>
-<p>More efficient than <code>polymul(p, polymonom(n, c))</code>.</p>
+<p>More efficient than <code>polymul(p, polymonom(n))</code>.</p>
 
 
 <details class="complexity" open>
@@ -5103,7 +5125,7 @@ convention was choosen to keep the return type consistent.</p>
 <span class="sd">        px^n</span>
 <span class="sd">    $$</span>
 
-<span class="sd">    More efficient than `polymul(p, polymonom(n, c))`.</span>
+<span class="sd">    More efficient than `polymul(p, polymonom(n))`.</span>
 
 <span class="sd">    Complexity</span>
 <span class="sd">    ----------</span>
