@@ -1,8 +1,8 @@
-from vector.sparse.utility import vecseq, vecstrim, vecsround
+from vector.sparse.utility import vecseq, vecstrim
 
 
 
-__all__ = ('polysdeg', 'polyseq', 'polystrim', 'polysround')
+__all__ = ('polysdeg', 'polyseq', 'polystrim')
 
 
 
@@ -36,16 +36,3 @@ def polyseq(p, q):
 def polystrim(p, tol=1e-9):
     """Remove all near zero (`abs(v_i)<=tol`) coefficients."""
     return vecstrim(p, tol=tol)
-
-def polysround(p, ndigits=None):
-    r"""Round all coefficients to the given precision.
-    
-    $$
-        \sum_k\text{round}_\text{ndigits}(a_k)x^k
-    $$
-    
-    See also
-    --------
-    - wraps: [`vector.vecsround`](https://goessl.github.io/vector/functional/#vector.functional.utility.vecsround)
-    """
-    return vecsround(p, ndigits=ndigits)

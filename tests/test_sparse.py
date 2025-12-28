@@ -74,11 +74,6 @@ def test_polystrim():
     assert polystrim({5:0}) == {}
     assert polystrim({2:0, 5:1}) == {5:1}
 
-def test_polysround():
-    assert polysround({}) == {}
-    assert polysround({0:1.1, 1:2.2}) == {0:1, 1:2}
-    assert polysround({0:1.12, 1:2.23}, ndigits=1) == {0:1.1, 1:2.2}
-
 
 #evaluation
 def test_polysval():

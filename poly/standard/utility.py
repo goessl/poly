@@ -1,8 +1,8 @@
-from vector import veclen, veceq, vectrim, vecround
+from vector import veclen, veceq, vectrim
 
 
 
-__all__ = ('polydeg', 'polyeq', 'polytrim', 'polyround')
+__all__ = ('polydeg', 'polyeq', 'polytrim')
 
 
 
@@ -74,22 +74,3 @@ def polytrim(p, tol=1e-9):
     - `numpy` equivalent: [`numpy.polynomial.polynomial.polytrim`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.polytrim.html)
     """
     return vectrim(p, tol=tol)
-
-def polyround(p, ndigits=None):
-    r"""Round all coefficients to the given precision.
-    
-    $$
-        \sum_k\text{round}_\text{ndigits}(a_k)x^k
-    $$
-    
-    Complexity
-    ----------
-    For a polynomial of degree $n$ there will be
-    
-    - $n+1$ scalar roundings (`round`).
-    
-    See also
-    --------
-    - wraps: [`vector.vecround`](https://goessl.github.io/vector/functional/#vector.functional.utility.vecround)
-    """
-    return vecround(p, ndigits)

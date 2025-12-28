@@ -72,11 +72,6 @@ def test_polytrim():
     assert polytrim((0,)) == ()
     assert polytrim((1, 0)) == (1,)
 
-def test_polyround():
-    assert polyround(()) == ()
-    assert polyround((1.1, 2.2)) == (1, 2)
-    assert polyround((1.12, 2.23), ndigits=1) == (1.1, 2.2)
-
 
 #evaluation
 def test_polyval():

@@ -1,8 +1,8 @@
-from vector import veclen, veceq, vectrim, vecround
+from vector import veclen, veceq, vectrim
 
 
 
-__all__ = ('hermdeg', 'hermeq', 'hermtrim', 'hermround')
+__all__ = ('hermdeg', 'hermeq', 'hermtrim')
 
 
 
@@ -34,7 +34,6 @@ def hermdeg(h):
     """
     return veclen(h) - 1
 
-
 def hermeq(g, h):
     r"""Return if two Hermite polynomial series are equal.
     
@@ -64,16 +63,3 @@ def hermtrim(h, tol=1e-9):
     - `numpy` equivalent: [`numpy.polynomial.hermite.hermtrim`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.hermite.hermtrim.html)
     """
     return vectrim(h, tol)
-
-def hermround(h, ndigits=None):
-    r"""Round all coefficients to the given precision.
-    
-    $$
-        \sum_k\text{round}_\text{ndigits}(h_k)H_k
-    $$
-    
-    See also
-    --------
-    - wraps: [`vector.vecround`](https://goessl.github.io/vector/functional/#vector.functional.vecround)
-    """
-    return vecround(h, ndigits)

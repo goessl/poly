@@ -35,7 +35,6 @@ This package heavily depends on and is the natural extension of [goessl/vector](
 | Degree                     | [`polydeg`][poly.standard.utility.polydeg]                          | [`polysdeg`][poly.sparse.utility.polysdeg]                          |
 | Comparison                 | [`polyeq`][poly.standard.utility.polyeq]                            | [`polyseq`][poly.sparse.utility.polyseq]                            |
 | Trimming                   | [`polytrim`][poly.standard.utility.polytrim]                        | [`polystrim`][poly.sparse.utility.polystrim]                        |
-| Rounding                   | [`polyround`][poly.standard.utility.polyround]                      | [`polysround`][poly.sparse.utility.polysround]                      |
 | **Conversion**             |                                                                     |                                                                     |
 |                            |                                                                     | [`polystod`][poly.sparse.conversion.polystod]                       |
 |                            |                                                                     | [`polydtos`][poly.sparse.conversion.polydtos]                       |
