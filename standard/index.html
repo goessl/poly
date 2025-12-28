@@ -442,15 +442,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#poly.standard.utility.polyround" class="md-nav__link">
-    <span class="md-ellipsis">
-      polyround
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1037,15 +1028,6 @@
   <a href="#poly.standard.utility.polytrim" class="md-nav__link">
     <span class="md-ellipsis">
       polytrim
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#poly.standard.utility.polyround" class="md-nav__link">
-    <span class="md-ellipsis">
-      polyround
     </span>
   </a>
   
@@ -2364,86 +2346,6 @@ convention was choosen to keep the return type consistent.</p>
 <span class="sd">    - `numpy` equivalent: [`numpy.polynomial.polynomial.polytrim`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.polynomial.polytrim.html)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">vectrim</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="poly.standard.utility.polyround" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polyround</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ndigits</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Round all coefficients to the given precision.</p>
-<div class="arithmatex">\[
-    \sum_k\text{round}_\text{ndigits}(a_k)x^k
-\]</div>
-
-
-<details class="complexity" open>
-  <summary>Complexity</summary>
-  <p>For a polynomial of degree <span class="arithmatex">\(n\)</span> there will be</p>
-<ul>
-<li><span class="arithmatex">\(n+1\)</span> scalar roundings (<code>round</code>).</li>
-</ul>
-</details>
-
-<details class="see-also" open>
-  <summary>See also</summary>
-  <ul>
-<li>wraps: <a href="https://goessl.github.io/vector/functional/#vector.functional.utility.vecround"><code>vector.vecround</code></a></li>
-</ul>
-</details>
-
-            <details class="quote">
-              <summary>Source code in <code>poly\standard\utility.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span>
-<span class="normal">95</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polyround</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ndigits</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Round all coefficients to the given precision.</span>
-
-<span class="sd">    $$</span>
-<span class="sd">        \sum_k\text{round}_\text{ndigits}(a_k)x^k</span>
-<span class="sd">    $$</span>
-
-<span class="sd">    Complexity</span>
-<span class="sd">    ----------</span>
-<span class="sd">    For a polynomial of degree $n$ there will be</span>
-
-<span class="sd">    - $n+1$ scalar roundings (`round`).</span>
-
-<span class="sd">    See also</span>
-<span class="sd">    --------</span>
-<span class="sd">    - wraps: [`vector.vecround`](https://goessl.github.io/vector/functional/#vector.functional.utility.vecround)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">vecround</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ndigits</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

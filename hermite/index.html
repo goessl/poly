@@ -554,15 +554,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#poly.hermite.utility.hermround" class="md-nav__link">
-    <span class="md-ellipsis">
-      hermround
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1340,15 +1331,6 @@
   <a href="#poly.hermite.utility.hermtrim" class="md-nav__link">
     <span class="md-ellipsis">
       hermtrim
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#poly.hermite.utility.hermround" class="md-nav__link">
-    <span class="md-ellipsis">
-      hermround
     </span>
   </a>
   
@@ -3663,7 +3645,8 @@ convention was choosen to keep the return type consistent.</p>
 
             <details class="quote">
               <summary>Source code in <code>poly\hermite\utility.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
+<span class="normal">38</span>
 <span class="normal">39</span>
 <span class="normal">40</span>
 <span class="normal">41</span>
@@ -3673,8 +3656,7 @@ convention was choosen to keep the return type consistent.</p>
 <span class="normal">45</span>
 <span class="normal">46</span>
 <span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">hermeq</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+<span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">hermeq</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return if two Hermite polynomial series are equal.</span>
 
 <span class="sd">    $$</span>
@@ -3730,7 +3712,8 @@ convention was choosen to keep the return type consistent.</p>
 
             <details class="quote">
               <summary>Source code in <code>poly\hermite\utility.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">50</span>
+<span class="normal">51</span>
 <span class="normal">52</span>
 <span class="normal">53</span>
 <span class="normal">54</span>
@@ -3744,8 +3727,7 @@ convention was choosen to keep the return type consistent.</p>
 <span class="normal">62</span>
 <span class="normal">63</span>
 <span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">hermtrim</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">):</span>
+<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">hermtrim</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Remove all leading near zero (`abs(h_i)&lt;=tol`) coefficients.</span>
 
 <span class="sd">    $$</span>
@@ -3761,66 +3743,6 @@ convention was choosen to keep the return type consistent.</p>
 <span class="sd">    - `numpy` equivalent: [`numpy.polynomial.hermite.hermtrim`](https://numpy.org/doc/stable/reference/generated/numpy.polynomial.hermite.hermtrim.html)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">vectrim</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">tol</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="poly.hermite.utility.hermround" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">hermround</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">ndigits</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Round all coefficients to the given precision.</p>
-<div class="arithmatex">\[
-    \sum_k\text{round}_\text{ndigits}(h_k)H_k
-\]</div>
-
-
-<details class="see-also" open>
-  <summary>See also</summary>
-  <ul>
-<li>wraps: <a href="https://goessl.github.io/vector/functional/#vector.functional.vecround"><code>vector.vecround</code></a></li>
-</ul>
-</details>
-
-            <details class="quote">
-              <summary>Source code in <code>poly\hermite\utility.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">hermround</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">ndigits</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Round all coefficients to the given precision.</span>
-
-<span class="sd">    $$</span>
-<span class="sd">        \sum_k\text{round}_\text{ndigits}(h_k)H_k</span>
-<span class="sd">    $$</span>
-
-<span class="sd">    See also</span>
-<span class="sd">    --------</span>
-<span class="sd">    - wraps: [`vector.vecround`](https://goessl.github.io/vector/functional/#vector.functional.vecround)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">vecround</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">ndigits</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

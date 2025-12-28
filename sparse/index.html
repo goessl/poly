@@ -484,15 +484,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#poly.sparse.utility.polysround" class="md-nav__link">
-    <span class="md-ellipsis">
-      polysround
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -981,15 +972,6 @@
   <a href="#poly.sparse.utility.polystrim" class="md-nav__link">
     <span class="md-ellipsis">
       polystrim
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#poly.sparse.utility.polysround" class="md-nav__link">
-    <span class="md-ellipsis">
-      polysround
     </span>
   </a>
   
@@ -2037,66 +2019,6 @@ if needed.</p>
 <span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polystrim</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove all near zero (`abs(v_i)&lt;=tol`) coefficients.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">vecstrim</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="poly.sparse.utility.polysround" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">polysround</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ndigits</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Round all coefficients to the given precision.</p>
-<div class="arithmatex">\[
-    \sum_k\text{round}_\text{ndigits}(a_k)x^k
-\]</div>
-
-
-<details class="see-also" open>
-  <summary>See also</summary>
-  <ul>
-<li>wraps: <a href="https://goessl.github.io/vector/functional/#vector.functional.utility.vecsround"><code>vector.vecsround</code></a></li>
-</ul>
-</details>
-
-            <details class="quote">
-              <summary>Source code in <code>poly\sparse\utility.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polysround</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ndigits</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Round all coefficients to the given precision.</span>
-
-<span class="sd">    $$</span>
-<span class="sd">        \sum_k\text{round}_\text{ndigits}(a_k)x^k</span>
-<span class="sd">    $$</span>
-
-<span class="sd">    See also</span>
-<span class="sd">    --------</span>
-<span class="sd">    - wraps: [`vector.vecsround`](https://goessl.github.io/vector/functional/#vector.functional.utility.vecsround)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">vecsround</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ndigits</span><span class="o">=</span><span class="n">ndigits</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
